@@ -115,7 +115,7 @@ endif()
 
 set_property(TARGET blockchain_import
 	PROPERTY
-	OUTPUT_NAME "monero-blockchain-import")
+	OUTPUT_NAME "pyrexcoin-blockchain-import")
 install(TARGETS blockchain_import DESTINATION bin)
 
 monero_add_executable(blockchain_export
@@ -136,7 +136,7 @@ target_link_libraries(blockchain_export
 
 set_property(TARGET blockchain_export
 	PROPERTY
-	OUTPUT_NAME "monero-blockchain-export")
+	OUTPUT_NAME "pyrexcoin-blockchain-export")
 install(TARGETS blockchain_export DESTINATION bin)
 
 monero_add_executable(blockchain_blackball
@@ -158,7 +158,7 @@ target_link_libraries(blockchain_blackball
 
 set_property(TARGET blockchain_blackball
 	PROPERTY
-	OUTPUT_NAME "monero-blockchain-blackball")
+	OUTPUT_NAME "pyrexcoin-blockchain-blackball")
 install(TARGETS blockchain_blackball DESTINATION bin)
 
 
@@ -180,6 +180,6 @@ target_link_libraries(blockchain_usage
 
 set_property(TARGET blockchain_usage
 	PROPERTY
-	OUTPUT_NAME "monero-blockchain-usage")
+	OUTPUT_NAME "pyrexcoin-blockchain-usage")
 install(TARGETS blockchain_usage DESTINATION bin)
 

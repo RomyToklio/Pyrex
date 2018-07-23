@@ -2148,7 +2148,7 @@ Otherwise, you prove the reserve of the smallest possible amount above &lt;amoun
 To start synchronizing with the daemon, use the &quot;refresh&quot; command.
 Use the &quot;help&quot; command to see the list of available commands.
 Use &quot;help &lt;command&gt;&quot; to see a command&apos;s documentation.
-Always use the &quot;exit&quot; command when closing monero-wallet-cli to save 
+Always use the &quot;exit&quot; command when closing pyrexcoin-wallet-cli to save 
 your current session&apos;s state. Otherwise, you might need to synchronize 
 your wallet again (your wallet keys are NOT at risk in any case).
 </source>
@@ -3716,7 +3716,7 @@ daemon to work correctly.</source>
     </message>
     <message>
         <location filename="../src/wallet/wallet2.cpp" line="117"/>
-        <source>Use daemon instance at port &lt;arg&gt; instead of 18081</source>
+        <source>Use daemon instance at port &lt;arg&gt; instead of 6870</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

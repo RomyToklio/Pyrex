@@ -199,7 +199,7 @@ invokes cmake commands as needed.
 
 * Add `PATH="$PATH:$HOME/monero/build/release/bin"` to `.profile`
 
-* Run Monero with `monerod --detach`
+* Run Monero with `pyrexcoind --detach`
 
 * **Optional**: build and run the test suite to verify the binaries:
 
@@ -252,7 +252,7 @@ Tested on a Raspberry Pi Zero with a clean install of minimal Raspbian Stretch (
 
 * Add `PATH="$PATH:$HOME/monero/build/release/bin"` to `.profile`
 
-* Run Monero with `monerod --detach`
+* Run Monero with `pyrexcoind --detach`
 
 * You may wish to reduce the size of the swap file after the build has finished, and delete the boost directory from your home directory
 
@@ -522,25 +522,25 @@ Installing a snap is very quick. Snaps are secure. They are isolated with all of
         docker build --build-arg NPROC=1 -t monero .
 
         # either run in foreground
-        docker run -it -v /monero/chain:/root/.bitmonero -v /monero/wallet:/wallet -p 18080:18080 monero
+        docker run -it -v /monero/chain:/root/.bitmonero -v /monero/wallet:/wallet -p 6869:6869 monero
 
         # or in background
-        docker run -it -d -v /monero/chain:/root/.bitmonero -v /monero/wallet:/wallet -p 18080:18080 monero
+        docker run -it -d -v /monero/chain:/root/.bitmonero -v /monero/wallet:/wallet -p 6869:6869 monero
 
 * The build needs 3 GB space.
 * Wait one  hour or more
 
 Packaging for your favorite distribution would be a welcome contribution!
 
-## Running monerod
+## Running pyrexcoind
 
 The build places the binary in `bin/` sub-directory within the build directory
 from which cmake was invoked (repository root by default). To run in
 foreground:
 
-    ./bin/monerod
+    ./bin/pyrexcoind
 
-To list all available options, run `./bin/monerod --help`.  Options can be
+To list all available options, run `./bin/pyrexcoind --help`.  Options can be
 specified either on the command line or in a configuration file passed by the
 `--config-file` argument.  To specify an option in the configuration file, add
 a line with the syntax `argumentname=value`, where `argumentname` is the name
@@ -548,17 +548,17 @@ of the argument without the leading dashes, for example `log-level=1`.
 
 To run in background:
 
-    ./bin/monerod --log-file monerod.log --detach
+    ./bin/pyrexcoind --log-file pyrexcoind.log --detach
 
 To run as a systemd service, copy
-[monerod.service](utils/systemd/monerod.service) to `/etc/systemd/system/` and
-[monerod.conf](utils/conf/monerod.conf) to `/etc/`. The [example
-service](utils/systemd/monerod.service) assumes that the user `monero` exists
+[pyrexcoind.service](utils/systemd/pyrexcoind.service) to `/etc/systemd/system/` and
+[pyrexcoind.conf](utils/conf/pyrexcoind.conf) to `/etc/`. The [example
+service](utils/systemd/pyrexcoind.service) assumes that the user `monero` exists
 and its home is the data directory specified in the [example
-config](utils/conf/monerod.conf).
+config](utils/conf/pyrexcoind.conf).
 
 If you're on Mac, you may need to add the `--max-concurrency 1` option to
-monero-wallet-cli, and possibly monerod, if you get crashes refreshing.
+pyrexcoin-wallet-cli, and possibly pyrexcoind, if you get crashes refreshing.
 
 ## Internationalization
 
@@ -570,27 +570,27 @@ While Monero isn't made to integrate with Tor, it can be used wrapped with torso
 setting the following configuration parameters and environment variables:
 
 * `--p2p-bind-ip 127.0.0.1` on the command line or `p2p-bind-ip=127.0.0.1` in
-  monerod.conf to disable listening for connections on external interfaces.
-* `--no-igd` on the command line or `no-igd=1` in monerod.conf to disable IGD
+  pyrexcoind.conf to disable listening for connections on external interfaces.
+* `--no-igd` on the command line or `no-igd=1` in pyrexcoind.conf to disable IGD
   (UPnP port forwarding negotiation), which is pointless with Tor.
 * `DNS_PUBLIC=tcp` or `DNS_PUBLIC=tcp://x.x.x.x` where x.x.x.x is the IP of the
   desired DNS server, for DNS requests to go over TCP, so that they are routed
-  through Tor. When IP is not specified, monerod uses the default list of
+  through Tor. When IP is not specified, pyrexcoind uses the default list of
   servers defined in [src/common/dns_utils.cpp](src/common/dns_utils.cpp).
-* `TORSOCKS_ALLOW_INBOUND=1` to tell torsocks to allow monerod to bind to interfaces
+* `TORSOCKS_ALLOW_INBOUND=1` to tell torsocks to allow pyrexcoind to bind to interfaces
    to accept connections from the wallet. On some Linux systems, torsocks
    allows binding to localhost by default, so setting this variable is only
    necessary to allow binding to local LAN/VPN interfaces to allow wallets to
    connect from remote hosts. On other systems, it may be needed for local wallets
    as well.
 * Do NOT pass `--detach` when running through torsocks with systemd, (see
-  [utils/systemd/monerod.service](utils/systemd/monerod.service) for details).
+  [utils/systemd/pyrexcoind.service](utils/systemd/pyrexcoind.service) for details).
 * If you use the wallet with a Tor daemon via the loopback IP (eg, 127.0.0.1:9050),
   then use `--untrusted-daemon` unless it is your own hidden service.
 
-Example command line to start monerod through Tor:
+Example command line to start pyrexcoind through Tor:
 
-    DNS_PUBLIC=tcp torsocks monerod --p2p-bind-ip 127.0.0.1 --no-igd
+    DNS_PUBLIC=tcp torsocks pyrexcoind --p2p-bind-ip 127.0.0.1 --no-igd
 
 ### Using Tor on Tails
 
@@ -598,8 +598,8 @@ TAILS ships with a very restrictive set of firewall rules. Therefore, you need
 to add a rule to allow this connection too, in addition to telling torsocks to
 allow inbound connections. Full example:
 
-    sudo iptables -I OUTPUT 2 -p tcp -d 127.0.0.1 -m tcp --dport 18081 -j ACCEPT
-    DNS_PUBLIC=tcp torsocks ./monerod --p2p-bind-ip 127.0.0.1 --no-igd --rpc-bind-ip 127.0.0.1 \
+    sudo iptables -I OUTPUT 2 -p tcp -d 127.0.0.1 -m tcp --dport 6870 -j ACCEPT
+    DNS_PUBLIC=tcp torsocks ./pyrexcoind --p2p-bind-ip 127.0.0.1 --no-igd --rpc-bind-ip 127.0.0.1 \
         --data-dir /home/amnesia/Persistent/your/directory/to/the/blockchain
 
 ## Debugging
@@ -617,7 +617,7 @@ Run the build.
 Once it stalls, enter the following command:
 
 ```
-gdb /path/to/monerod `pidof monerod` 
+gdb /path/to/pyrexcoind `pidof pyrexcoind` 
 ```
 
 Type `thread apply all bt` within gdb in order to obtain the stack trace
@@ -630,27 +630,27 @@ Enter `echo core | sudo tee /proc/sys/kernel/core_pattern` to stop cores from be
 
 Run the build.
 
-When it terminates with an output along the lines of "Segmentation fault (core dumped)", there should be a core dump file in the same directory as monerod. It may be named just `core`, or `core.xxxx` with numbers appended.
+When it terminates with an output along the lines of "Segmentation fault (core dumped)", there should be a core dump file in the same directory as pyrexcoind. It may be named just `core`, or `core.xxxx` with numbers appended.
 
 You can now analyse this core dump with `gdb` as follows:
 
-`gdb /path/to/monerod /path/to/dumpfile`
+`gdb /path/to/pyrexcoind /path/to/dumpfile`
 
 Print the stack trace with `bt`
 
 * To run monero within gdb:
 
-Type `gdb /path/to/monerod`
+Type `gdb /path/to/pyrexcoind`
 
 Pass command-line options with `--args` followed by the relevant arguments
 
-Type `run` to run monerod
+Type `run` to run pyrexcoind
 
 ### Analysing memory corruption
 
 We use the tool `valgrind` for this.
 
-Run with `valgrind /path/to/monerod`. It will be slow.
+Run with `valgrind /path/to/pyrexcoind`. It will be slow.
 
 ### LMDB
 

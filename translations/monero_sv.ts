@@ -2205,7 +2205,7 @@ Annars bevisar du reserven för det minsta möjliga belopp över &lt;belopp&gt; 
 To start synchronizing with the daemon, use the &quot;refresh&quot; command.
 Use the &quot;help&quot; command to see the list of available commands.
 Use &quot;help &lt;command>&quot; to see a command&apos;s documentation.
-Always use the &quot;exit&quot; command when closing monero-wallet-cli to save 
+Always use the &quot;exit&quot; command when closing pyrexcoin-wallet-cli to save 
 your current session&apos;s state. Otherwise, you might need to synchronize 
 your wallet again (your wallet keys are NOT at risk in any case).
 </source>
@@ -2213,7 +2213,7 @@ your wallet again (your wallet keys are NOT at risk in any case).
 Använd kommandot &quot;refresh&quot; för att starta synkronisering med daemonen.
 Använd kommandot &quot;help&quot; för att visa en lista över tillgängliga kommandon.
 Använd &quot;help &lt;kommando>&quot; för att visa dokumentation för kommandot.
-Använd alltid kommandot &quot;exit&quot; när du stänger monero-wallet-cli så att ditt aktuella sessionstillstånd sparas. Annars kan du bli tvungen att synkronisera
+Använd alltid kommandot &quot;exit&quot; när du stänger pyrexcoin-wallet-cli så att ditt aktuella sessionstillstånd sparas. Annars kan du bli tvungen att synkronisera
 din plånbok igen (din plånboks nycklar är dock INTE hotade i vilket fall som helst).
 </translation>
     </message>
@@ -3809,8 +3809,8 @@ daemon för att fungera korrekt.</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet2.cpp" line="117"/>
-        <source>Use daemon instance at port &lt;arg&gt; instead of 18081</source>
-        <translation>Använd daemonen på port &lt;arg&gt; istället för 18081</translation>
+        <source>Use daemon instance at port &lt;arg&gt; instead of 6870</source>
+        <translation>Använd daemonen på port &lt;arg&gt; istället för 6870</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet2.cpp" line="119"/>
