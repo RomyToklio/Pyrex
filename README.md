@@ -5,7 +5,7 @@ Portions Copyright (c) 2012-2013 The Cryptonote developers.
 
 ## Development resources
 
-- Web: [getmonero.org](https://getmonero.org)
+- Web: [getmonero.org](http://pyrexcoin.com/)
 - Forum: [forum.getmonero.org](https://forum.getmonero.org)
 - Mail: [dev@getmonero.org](mailto:dev@getmonero.org)
 - GitHub: [https://github.com/monero-project/monero](https://github.com/monero-project/monero)
@@ -238,7 +238,7 @@ Tested on a Raspberry Pi Zero with a clean install of minimal Raspbian Stretch (
 ```
 * Clone monero and checkout most recent release version:
 ```
-        git clone https://github.com/monero-project/monero.git
+        git clone https://github.com/pyrex-coin/Pyrex.git
 	cd monero
 	git checkout tags/v0.12.2.0
 ```
@@ -329,7 +329,7 @@ application.
 
 * To git clone, run:
 
-        git clone --recursive https://github.com/monero-project/monero.git
+        git clone --recursive https://github.com/pyrex-coin/Pyrex.git
 
 **Building**
 

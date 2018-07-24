@@ -1147,8 +1147,8 @@ Cette transaction sera déverrouillée au bloc %llu, dans approximativement %s j
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="679"/>
-        <source>Current fee is %s monero per kB</source>
-        <translation>Les frais sont actuellement de %s monero par kO</translation>
+        <source>Current fee is %s pyrexcoin per kB</source>
+        <translation>Les frais sont actuellement de %s pyrexcoin par kO</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="695"/>

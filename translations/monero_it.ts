@@ -1043,7 +1043,7 @@ Questa transazione verrà sbloccata al blocco %llu, in approssimativamente %s gi
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="679"/>
         <source>Current fee is %s monero per kB</source>
-        <translation>La commissione attuale è %s Monero(j) per kB</translation>
+        <translation>La commissione attuale è %s Pyrexcoin(j) per kB</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="695"/>

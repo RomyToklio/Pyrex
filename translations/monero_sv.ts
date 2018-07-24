@@ -3781,7 +3781,7 @@ Utgångar per *: </translation>
         <location filename="../src/simplewallet/simplewallet.cpp" line="6787"/>
         <source>This is the command line monero wallet. It needs to connect to a monero
 daemon to work correctly.</source>
-        <translation>Detta är kommandoradsplånboken för Monero. Den måste ansluta till en Monero-
+        <translation>Detta är kommandoradsplånboken för Pyrexcoin. Den måste ansluta till en Pyrexcoin-
 daemon för att fungera korrekt.</translation>
     </message>
     <message>
@@ -4025,7 +4025,7 @@ daemon för att fungera korrekt.</translation>
         <location filename="../src/wallet/wallet_rpc_server.cpp" line="2870"/>
         <source>This is the RPC monero wallet. It needs to connect to a monero
 daemon to work correctly.</source>
-        <translation>Detta är RPC-plånboken för monero. Den måste ansluta till en Monero-
+        <translation>Detta är RPC-plånboken för monero. Den måste ansluta till en Pyrexcoin-
 daemon för att fungera korrekt.</translation>
     </message>
     <message>
@@ -4134,7 +4134,7 @@ daemon för att fungera korrekt.</translation>
         <location filename="../src/wallet/wallet_args.cpp" line="138"/>
         <source>This is the command line monero wallet. It needs to connect to a monero
 daemon to work correctly.</source>
-        <translation>Detta är kommandoradsplånboken för Monero. Den måste ansluta till en Monero-
+        <translation>Detta är kommandoradsplånboken för Pyrexcoin. Den måste ansluta till en Pyrexcoin-
 daemon för att fungera korrekt.</translation>
     </message>
     <message>
