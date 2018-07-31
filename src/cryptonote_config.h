@@ -161,7 +161,7 @@ namespace config
       0x12 ,0x99, 0xF1, 0x22 , 0x61, 0x04 , 0xAB, 0x31, 0x48, 0x9E, 0xD4, 0x82, 0x16, 0x4B, 0xA1, 0x47
     } }; // Bender's nightmare
   std::string const GENESIS_TX = "013c01ff0001ffffffffffff0302a0cb993b480bd606568fdf8a0d55b183cdadd2a318d80a4d4e64af6b031d9ea321017767aafcde9be00dcfd098715ebcf7f410daebc582fda69d24a28e9d0bc890d1";
-  //013c01ff00018094ebdc0302bc7ae26c871f8f18415e0fbd4776f9d4dbd5297c126bd99e26cf218ea0d6ec4a2101450a7665ca17a5ef3c691898068994569bb033012598c43068161b1194592327
+  //013c01ff0001ffffffffffff0302a0cb993b480bd606568fdf8a0d55b183cdadd2a318d80a4d4e64af6b031d9ea321017767aafcde9be00dcfd098715ebcf7f410daebc582fda69d24a28e9d0bc890d1
   uint32_t const GENESIS_NONCE = 10000;
 
   namespace testnet
