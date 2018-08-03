@@ -1,6 +1,6 @@
 # Pyrexcoin
-
-Copyright (c) 2014-2018 The pyrex Project.   
+Copyright (c) 2018 The PYREXCOIN developers.   
+Copyright (c) 2014-2018 The Monero Project.   
 Portions Copyright (c) 2012-2013 The Cryptonote developers.
 
 ## Development resources
