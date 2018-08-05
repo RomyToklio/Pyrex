@@ -1,19 +1,19 @@
 [Unit]
-Description=Monero Full Node
+Description=Pyrexcoin Full Node
 After=network.target
 
 [Service]
-User=monero
-Group=monero
+User=pyrexcoin
+Group=pyrexcoin
 WorkingDirectory=~
-RuntimeDirectory=monero
+RuntimeDirectory=pyrexcoin
 
 # Clearnet config
 #
 Type=forking
-PIDFile=/run/monero/pyrexcoind.pid
+PIDFile=/run/pyrexcoin/pyrexcoind.pid
 ExecStart=/usr/bin/pyrexcoind --config-file /etc/pyrexcoind.conf \
-    --detach --pidfile /run/monero/pyrexcoind.pid
+    --detach --pidfile /run/pyrexcoin/pyrexcoind.pid
 
 # Tor config
 #
