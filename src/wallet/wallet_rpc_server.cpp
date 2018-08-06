@@ -597,7 +597,7 @@ namespace tools
           }
           if (addresses.empty())
           {
-            er.message = std::string("No Monero address found at ") + url;
+            er.message = std::string("No Pyrexcoin address found at ") + url;
             return {};
           }
           return addresses[0];
@@ -1430,7 +1430,7 @@ namespace tools
         }
         if (addresses.empty())
         {
-          er.message = std::string("No Monero address found at ") + url;
+          er.message = std::string("No Pyrexcoin address found at ") + url;
           return {};
         }
         return addresses[0];
@@ -2136,7 +2136,7 @@ namespace tools
         }
         if (addresses.empty())
         {
-          er.message = std::string("No Monero address found at ") + url;
+          er.message = std::string("No Pyrexcoin address found at ") + url;
           return {};
         }
         return addresses[0];
