@@ -1,7 +1,7 @@
 .DS_Store
 /doc
 /build
-.vscode
+/.vscode
 /tags
 log/
 
