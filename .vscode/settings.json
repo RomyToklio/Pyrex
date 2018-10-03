@@ -1,5 +1,9 @@
 {
     "files.associations": {
-        "xmemory0": "cpp"
+        "xmemory0": "cpp",
+        "iterator": "c",
+        "memory": "c",
+        "random": "c",
+        "xutility": "c"
     }
 }
