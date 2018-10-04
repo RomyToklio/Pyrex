@@ -5840,11 +5840,7 @@ bool simple_wallet::donate(const std::vector<std::string> &args_)
   local_args.push_back(amount_str);
   if (!payment_id_str.empty())
     local_args.push_back(payment_id_str);
-<<<<<<< HEAD
   message_writer() << (boost::format(tr("Donating %s %s to The Pyrexcoin Project %s).")) % amount_str % cryptonote::get_unit(cryptonote::get_default_decimal_point()) % MONERO_DONATION_ADDR).str();
-=======
-  message_writer() << (boost::format(tr("Donating %s %s to The Monero Project (donate.getmonero.org or %s).")) % amount_str % cryptonote::get_unit(cryptonote::get_default_decimal_point()) % MONERO_DONATION_ADDR).str();
->>>>>>> upstream/release-v0.13
   transfer(local_args);
   return true;
 }
@@ -8118,13 +8114,8 @@ int main(int argc, char* argv[])
   bool should_terminate = false;
   std::tie(vm, should_terminate) = wallet_args::main(
    argc, argv,
-<<<<<<< HEAD
    "pyrexcoin-wallet-cli [--wallet-file=<file>|--generate-new-wallet=<file>] [<COMMAND>]",
     sw::tr("This is the command line Pyrexcoin wallet. It needs to connect to a pyrexcoin\ndaemon to work correctly.\nWARNING: Do not reuse your Pyrexcoin keys on another fork, UNLESS this fork has key reuse mitigations built in. Doing so will harm your privacy."),
-=======
-   "monero-wallet-cli [--wallet-file=<file>|--generate-new-wallet=<file>] [<COMMAND>]",
-    sw::tr("This is the command line monero wallet. It needs to connect to a monero\ndaemon to work correctly.\nWARNING: Do not reuse your Monero keys on another fork, UNLESS this fork has key reuse mitigations built in. Doing so will harm your privacy."),
->>>>>>> upstream/release-v0.13
     desc_params,
     positional_options,
     [](const std::string &s, bool emphasis){ tools::scoped_message_writer(emphasis ? epee::console_color_white : epee::console_color_default, true) << s; },
