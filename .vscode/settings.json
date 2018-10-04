@@ -4,6 +4,7 @@
         "iterator": "c",
         "memory": "c",
         "random": "c",
-        "xutility": "c"
+        "xutility": "c",
+        "xlocale": "cpp"
     }
 }

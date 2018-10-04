@@ -91,7 +91,7 @@ static bool generate_multisig(uint32_t threshold, uint32_t total, const std::str
     for (size_t n = 0; n < total; ++n)
     {
       std::string name = basename + "-" + std::to_string(n + 1);
-      wallets[n].reset(new tools::wallet2(nettype));
+      wallets[n].reset(new tools::wallet2(nettype, 1, false));
       wallets[n]->init("");
       wallets[n]->generate(name, pwd_container->password(), rct::rct2sk(rct::skGen()), false, false, create_address_file);
     }
@@ -101,11 +101,13 @@ static bool generate_multisig(uint32_t threshold, uint32_t total, const std::str
     std::vector<crypto::public_key> pk(total);
     for (size_t n = 0; n < total; ++n)
     {
+      wallets[n]->decrypt_keys(pwd_container->password());
       if (!tools::wallet2::verify_multisig_info(wallets[n]->get_multisig_info(), sk[n], pk[n]))
       {
         tools::fail_msg_writer() << tr("Failed to verify multisig info");
         return false;
       }
+      wallets[n]->encrypt_keys(pwd_container->password());
     }
 
     // make the wallets multisig
@@ -165,6 +167,8 @@ static bool generate_multisig(uint32_t threshold, uint32_t total, const std::str
 
 int main(int argc, char* argv[])
 {
+  TRY_ENTRY();
+
   po::options_description desc_params(wallet_args::tr("Wallet options"));
   command_line::add_arg(desc_params, arg_filename_base);
   command_line::add_arg(desc_params, arg_scheme);
@@ -174,7 +178,9 @@ int main(int argc, char* argv[])
   command_line::add_arg(desc_params, arg_stagenet);
   command_line::add_arg(desc_params, arg_create_address_file);
 
-  const auto vm = wallet_args::main(
+  boost::optional<po::variables_map> vm;
+  bool should_terminate = false;
+  std::tie(vm, should_terminate) = wallet_args::main(
    argc, argv,
    "pyrexcoin-gen-multisig [(--testnet|--stagenet)] [--filename-base=<filename>] [--scheme=M/N] [--threshold=M] [--participants=N]",
     genms::tr("This program generates a set of multisig wallets - use this simpler scheme only if all the participants trust each other"),
@@ -185,6 +191,8 @@ int main(int argc, char* argv[])
   );
   if (!vm)
     return 1;
+  if (should_terminate)
+    return 0;
 
   bool testnet, stagenet;
   uint32_t threshold = 0, total = 0;
@@ -248,5 +256,5 @@ int main(int argc, char* argv[])
     return 1;
 
   return 0;
-  //CATCH_ENTRY_L0("main", 1);
+  CATCH_ENTRY_L0("main", 1);
 }
