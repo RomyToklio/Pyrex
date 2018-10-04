@@ -16,10 +16,16 @@ Portions Copyright (c) 2012-2013 The Cryptonote developers.
 - Our [Vulnerability Response Process](https://github.com/monero-project/meta/blob/master/VULNERABILITY_RESPONSE_PROCESS.md) encourages responsible disclosure
 - We are also available via [HackerOne](https://hackerone.com/monero)
 
+<<<<<<< HEAD
 
 ## Announcements
 
 You can subscribe to an [announcement listserv](https://lists.getmonero.org) to get critical announcements from the Monero core team. The announcement list can be very helpful for knowing when software updates are needed.
+=======
+## Announcements
+
+- You can subscribe to an [announcement listserv](https://lists.getmonero.org) to get critical announcements from the Monero core team. The announcement list can be very helpful for knowing when software updates are needed.
+>>>>>>> upstream/release-v0.13
 
 ## Build
 
@@ -108,8 +114,15 @@ Dates are provided in the format YYYY-MM-DD.
 | 1220516                        | 2017-01-05 | v4                | v0.10.1                | v0.10.2.1                  | Allow normal and RingCT transactions |
 | 1288616                        | 2017-04-15 | v5                | v0.10.3.0              | v0.10.3.1                  | Adjusted minimum blocksize and fee algorithm      |
 | 1400000                        | 2017-09-16 | v6                | v0.11.0.0              | v0.11.0.0                  | Allow only RingCT transactions, allow only >= ringsize 5      |
+<<<<<<< HEAD
 | 1546000                        | 2018-04-06 | v7                | v0.12.0.0              | v0.12.2.0                  | Cryptonight variant 1, ringsize >= 7, sorted inputs
 | XXXXXXX                        | 2018-10-XX | XX                | XXXXXXXXX              | XXXXXXXXX                  | X
+=======
+| 1546000                        | 2018-04-06 | v7                | v0.12.0.0              | v0.12.3.0                  | Cryptonight variant 1, ringsize >= 7, sorted inputs
+| 1685555                        | 2018-10-18 | v8                | v0.13.0.0              | v0.13.0.0                  | max transaction size at half the penalty free block size, bulletproofs enabled, cryptonight variant 2, fixed ringsize [11](https://youtu.be/KOO5S4vxi0o)
+| 1686275                        | 2018-10-19 | v9                | v0.13.0.0              | v0.13.0.0                  | bulletproofs required
+| XXXXXXX                        | 2019-04-XX | XX                | XXXXXXXXX              | XXXXXXXXX                  | X
+>>>>>>> upstream/release-v0.13
 
 X's indicate that these details have not been determined as of commit date.
 
@@ -498,7 +511,11 @@ Packages are available for
 
 * Ubuntu and [snap supported](https://snapcraft.io/docs/core/install) systems, via a community contributed build.
 
+<<<<<<< HEAD
     snap install monero --beta
+=======
+	snap install monero --beta
+>>>>>>> upstream/release-v0.13
 
 Installing a snap is very quick. Snaps are secure. They are isolated with all of their dependencies. Snaps also auto update when a new version is released.
 
@@ -523,17 +540,44 @@ Installing a snap is very quick. Snaps are secure. They are isolated with all of
         docker build --build-arg NPROC=1 -t monero .
 
         # either run in foreground
+<<<<<<< HEAD
         docker run -it -v /monero/chain:/root/.bitmonero -v /monero/wallet:/wallet -p 6869:6869 monero
 
         # or in background
         docker run -it -d -v /monero/chain:/root/.bitmonero -v /monero/wallet:/wallet -p 6869:6869 monero
+=======
+        docker run -it -v /monero/chain:/root/.bitmonero -v /monero/wallet:/wallet -p 18080:18080 monero
+
+        # or in background
+        docker run -it -d -v /monero/chain:/root/.bitmonero -v /monero/wallet:/wallet -p 18080:18080 monero
+>>>>>>> upstream/release-v0.13
 
 * The build needs 3 GB space.
 * Wait one  hour or more
 
 Packaging for your favorite distribution would be a welcome contribution!
 
+<<<<<<< HEAD
 ## Running pyrexcoind
+=======
+You can also cross-compile binaries on linux for windows and macos with the depends system. Go to contrib/depends and type:
+
+* ```make HOST=x86_64-linux-gnu``` for 64-bit linux binaries.
+* ```make HOST=x86_64-w64-mingw32``` for 64-bit windows binaries. Requires: python3 nsis g++-mingw-w64-x86-64 wine1.6 bc
+* ```make HOST=x86_64-apple-darwin11``` for darwin binaries. Requires: cmake imagemagick libcap-dev librsvg2-bin libz-dev libbz2-dev libtiff-tools python-dev
+* ```make HOST=i686-linux-gnu``` for 32-bit linux binaries. Requires: g++-multilib bc
+* ```make HOST=i686-w64-mingw32``` for 32-bit windows binaries. Requires: python3 nsis g++-mingw-w64-i686
+* ```make HOST=arm-linux-gnueabihf``` for armv6 binaries. Requires: g++-arm-linux-gnueabihf
+
+The required packages are the names for each toolchain on apt. Depending on your distro, they may have different names.
+Then go back to the source dir and type for example for windows 64bit: 
+
+* ```cmake -DCMAKE_TOOLCHAIN_FILE=`pwd`/contrib/depends/x86_64-w64-mingw32```
+
+Using depends might also be easier to compile monero on windows than using msys. Activate windows subsystem for linux (for example ubuntu) install the apt build-essentials and follow the depends steps as depicted above.
+
+## Running monerod
+>>>>>>> upstream/release-v0.13
 
 The build places the binary in `bin/` sub-directory within the build directory
 from which cmake was invoked (repository root by default). To run in
@@ -585,7 +629,11 @@ setting the following configuration parameters and environment variables:
    connect from remote hosts. On other systems, it may be needed for local wallets
    as well.
 * Do NOT pass `--detach` when running through torsocks with systemd, (see
+<<<<<<< HEAD
   [utils/systemd/pyrexcoind.service](utils/systemd/pyrexcoind.service) for details).
+=======
+  [utils/systemd/monerod.service](utils/systemd/monerod.service) for details).
+>>>>>>> upstream/release-v0.13
 * If you use the wallet with a Tor daemon via the loopback IP (eg, 127.0.0.1:9050),
   then use `--untrusted-daemon` unless it is your own hidden service.
 
@@ -661,7 +709,11 @@ You can then run the monero tools normally. Performance will typically halve.
 
 * valgrind
 
+<<<<<<< HEAD
 Run with `valgrind /path/to/pyrexcoind`. It will be slow.
+=======
+Install valgrind and run as `valgrind /path/to/monerod`. It will be very slow.
+>>>>>>> upstream/release-v0.13
 
 ### LMDB
 

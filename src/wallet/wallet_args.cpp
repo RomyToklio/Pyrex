@@ -150,7 +150,11 @@ namespace wallet_args
       }
       else if (command_line::get_arg(vm, command_line::arg_version))
       {
+<<<<<<< HEAD
         Print(print) << "Pyrexcoin '" << MONERO_RELEASE_NAME << "' (v" << MONERO_VERSION_FULL << ")";
+=======
+        Print(print) << "Monero '" << MONERO_RELEASE_NAME << "' (v" << MONERO_VERSION_FULL << ")";
+>>>>>>> upstream/release-v0.13
         should_terminate = true;
         return true;
       }

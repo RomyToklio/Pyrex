@@ -144,3 +144,8 @@ EXPOSE 6870
 
 ENTRYPOINT ["pyrexcoind", "--p2p-bind-ip=0.0.0.0", "--p2p-bind-port=6869", "--rpc-bind-ip=0.0.0.0", "--rpc-bind-port=6870", "--non-interactive", "--confirm-external-bind"]
 
+<<<<<<< HEAD
+=======
+ENTRYPOINT ["monerod", "--p2p-bind-ip=0.0.0.0", "--p2p-bind-port=18080", "--rpc-bind-ip=0.0.0.0", "--rpc-bind-port=18081", "--non-interactive", "--confirm-external-bind"]
+
+>>>>>>> upstream/release-v0.13

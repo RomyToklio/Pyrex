@@ -701,7 +701,7 @@ bool Blockchain::get_short_chain_history(std::list<crypto::hash>& ids) const
   uint64_t i = 0;
   uint64_t current_multiplier = 1;
   uint64_t sz = m_db->height();
-
+  
   if(!sz)
     return true;
 
