@@ -159,7 +159,10 @@ namespace net_utils
     critical_section m_self_refs_lock;
     critical_section m_chunking_lock; // held while we add small chunks of the big do_send() to small do_send_chunk()
     critical_section m_shutdown_lock; // held while shutting down
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/release-v0.12
     
     t_connection_type m_connection_type;
     
