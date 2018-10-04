@@ -1147,8 +1147,8 @@ Denna transaktion låses upp vid block %llu, om ungefär %s dagar (förutsatt en
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="679"/>
-        <source>Current fee is %s monero per kB</source>
-        <translation>Aktuell avgift är %s monero per kB</translation>
+        <source>Current fee is %s pyrexcoin per kB</source>
+        <translation>Aktuell avgift är %s pyrexcoin per kB</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="695"/>
@@ -1559,8 +1559,8 @@ Denna transaktion låses upp vid block %llu, om ungefär %s dagar (förutsatt en
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="1622"/>
-        <source>Donate &lt;amount&gt; to the development team (donate.getmonero.org).</source>
-        <translation>Donera &lt;belopp&gt; till utvecklingsteamet (donate.getmonero.org).</translation>
+        <source>Donate &lt;amount&gt; to the development team </source>
+        <translation>Donera &lt;belopp&gt; till utvecklingsteamet</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="1625"/>
@@ -1703,7 +1703,7 @@ Om argumentet &quot;tag_description&quot; anges, så tilldelas taggen &lt;taggna
  confirm-missing-payment-id &lt;1|0>
  ask-password &lt;1|0>
  unit &lt;monero|millinero|micronero|nanonero|piconero>
-   Set the default monero (sub-)unit.
+   Set the default pyrexcoin (sub-)unit.
  min-outputs-count [n]
    Try to keep at least that many outputs of value at least min-outputs-value.
  min-outputs-value [n]
@@ -3759,8 +3759,8 @@ Utgångar per *: </translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="129"/>
-        <source>The newly created transaction will not be relayed to the monero network</source>
-        <translation>Den nyss skapade transaktionen kommer inte att skickas vidare till monero-nätverket</translation>
+        <source>The newly created transaction will not be relayed to the pyrexcoin network</source>
+        <translation>Den nyss skapade transaktionen kommer inte att skickas vidare till pyrexcoin-nätverket</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="171"/>
@@ -3779,9 +3779,9 @@ Utgångar per *: </translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="6787"/>
-        <source>This is the command line monero wallet. It needs to connect to a monero
+        <source>This is the command line pyrexcoin wallet. It needs to connect to a pyrexcoin
 daemon to work correctly.</source>
-        <translation>Detta är kommandoradsplånboken för Monero. Den måste ansluta till en Monero-
+        <translation>Detta är kommandoradsplånboken för pyrexcoin. Den måste ansluta till en pyrexcoin-
 daemon för att fungera korrekt.</translation>
     </message>
     <message>
@@ -4023,9 +4023,9 @@ daemon för att fungera korrekt.</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet_rpc_server.cpp" line="2870"/>
-        <source>This is the RPC monero wallet. It needs to connect to a monero
+        <source>This is the RPC pyrexcoin wallet. It needs to connect to a pyrexcoin
 daemon to work correctly.</source>
-        <translation>Detta är RPC-plånboken för monero. Den måste ansluta till en Monero-
+        <translation>Detta är RPC-plånboken för pyrexcoin. Den måste ansluta till en pyrexcoin-
 daemon för att fungera korrekt.</translation>
     </message>
     <message>
@@ -4132,9 +4132,9 @@ daemon för att fungera korrekt.</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet_args.cpp" line="138"/>
-        <source>This is the command line monero wallet. It needs to connect to a monero
+        <source>This is the command line pyrexcoin wallet. It needs to connect to a pyrexcoin
 daemon to work correctly.</source>
-        <translation>Detta är kommandoradsplånboken för Monero. Den måste ansluta till en Monero-
+        <translation>Detta är kommandoradsplånboken för pyrexcoin. Den måste ansluta till en pyrexcoin-
 daemon för att fungera korrekt.</translation>
     </message>
     <message>

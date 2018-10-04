@@ -1268,8 +1268,8 @@ void wallet2::scan_output(const cryptonote::transaction &tx, const crypto::publi
     if (!m_encrypt_keys_after_refresh)
     {
       boost::optional<epee::wipeable_string> pwd = m_callback->on_get_password("output received");
-      THROW_WALLET_EXCEPTION_IF(!pwd, error::password_needed, tr("Password is needed to compute key image for incoming monero"));
-      THROW_WALLET_EXCEPTION_IF(!verify_password(*pwd), error::password_needed, tr("Invalid password: password is needed to compute key image for incoming monero"));
+      THROW_WALLET_EXCEPTION_IF(!pwd, error::password_needed, tr("Password is needed to compute key image for incoming Pyrexcoin"));
+      THROW_WALLET_EXCEPTION_IF(!verify_password(*pwd), error::password_needed, tr("Invalid password: password is needed to compute key image for incoming Pyrexcoin"));
       decrypt_keys(*pwd);
       m_encrypt_keys_after_refresh = *pwd;
     }
@@ -6333,33 +6333,6 @@ bool wallet2::is_keys_file_locked() const
   return m_keys_file_locker->locked();
 }
 
-bool wallet2::lock_keys_file()
-{
-  if (m_keys_file_locker)
-  {
-    MDEBUG(m_keys_file << " is already locked.");
-    return false;
-  }
-  m_keys_file_locker.reset(new tools::file_locker(m_keys_file));
-  return true;
-}
-
-bool wallet2::unlock_keys_file()
-{
-  if (!m_keys_file_locker)
-  {
-    MDEBUG(m_keys_file << " is already unlocked.");
-    return false;
-  }
-  m_keys_file_locker.reset();
-  return true;
-}
-
-bool wallet2::is_keys_file_locked() const
-{
-  return m_keys_file_locker->locked();
-}
-
 bool wallet2::tx_add_fake_output(std::vector<std::vector<tools::wallet2::get_outs_entry>> &outs, uint64_t global_index, const crypto::public_key& output_public_key, const rct::key& mask, uint64_t real_index, bool unlocked) const
 {
   if (!unlocked) // don't add locked outs
@@ -11137,7 +11110,7 @@ std::string wallet2::make_uri(const std::string &address, const std::string &pay
     }
   }
 
-  std::string uri = "monero:" + address;
+  std::string uri = "Pyrexcoin:" + address;
   unsigned int n_fields = 0;
 
   if (!payment_id.empty())
@@ -11166,9 +11139,9 @@ std::string wallet2::make_uri(const std::string &address, const std::string &pay
 //----------------------------------------------------------------------------------------------------
 bool wallet2::parse_uri(const std::string &uri, std::string &address, std::string &payment_id, uint64_t &amount, std::string &tx_description, std::string &recipient_name, std::vector<std::string> &unknown_parameters, std::string &error)
 {
-  if (uri.substr(0, 7) != "monero:")
+  if (uri.substr(0, 7) != "Pyrexcoin:")
   {
-    error = std::string("URI has wrong scheme (expected \"monero:\"): ") + uri;
+    error = std::string("URI has wrong scheme (expected \"Pyrexcoin:\"): ") + uri;
     return false;
   }
 
@@ -11469,6 +11442,5 @@ uint64_t wallet2::get_segregation_fork_height() const
 //----------------------------------------------------------------------------------------------------
 void wallet2::generate_genesis(cryptonote::block& b) const {
   cryptonote::generate_genesis_block(b, get_config(m_nettype).GENESIS_TX, get_config(m_nettype).GENESIS_NONCE);
-}
 }
 }

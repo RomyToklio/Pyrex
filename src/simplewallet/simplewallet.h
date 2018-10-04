@@ -51,7 +51,7 @@
 
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "wallet.simplewallet"
-// Hardcode Pyrexcoin's donation address (see #1447)
+// Hardcode Monero's donation address (see #1447)
 constexpr const char MONERO_DONATION_ADDR[] = "PYX1qdYRh4aQmYUZAF8EvGGHWDJsgbE94dsf9YQdNVHuTs6KHRtveab2ypp9C9hTQGFLLLsTAy6bZd8rwJr2Vohk286w5HkMy7";
 
 /*!
@@ -233,7 +233,6 @@ namespace cryptonote
     bool print_ring_members(const std::vector<tools::wallet2::pending_tx>& ptx_vector, std::ostream& ostr);
     std::string get_prompt() const;
     bool print_seed(bool encrypted);
-    bool is_daemon_trusted() const { return *m_trusted_daemon; }
 
     /*!
      * \brief Prints the seed with a nice message
