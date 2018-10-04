@@ -136,7 +136,7 @@ struct options {
   const command_line::arg_descriptor<std::string> daemon_host = {"daemon-host", tools::wallet2::tr("Use daemon instance at host <arg> instead of localhost"), ""};
   const command_line::arg_descriptor<std::string> password = {"password", tools::wallet2::tr("Wallet password (escape/quote as needed)"), "", true};
   const command_line::arg_descriptor<std::string> password_file = {"password-file", tools::wallet2::tr("Wallet password file"), "", true};
-  const command_line::arg_descriptor<int> daemon_port = {"daemon-port", tools::wallet2::tr("Use daemon instance at port <arg> instead of 6870"), 0};
+  const command_line::arg_descriptor<int> daemon_port = {"daemon-port", tools::wallet2::tr("Use daemon instance at port <arg> instead of 18081"), 0};
   const command_line::arg_descriptor<std::string> daemon_login = {"daemon-login", tools::wallet2::tr("Specify username[:password] for daemon RPC client"), "", true};
   const command_line::arg_descriptor<bool> testnet = {"testnet", tools::wallet2::tr("For testnet. Daemon must also be launched with --testnet flag"), false};
   const command_line::arg_descriptor<bool> stagenet = {"stagenet", tools::wallet2::tr("For stagenet. Daemon must also be launched with --stagenet flag"), false};
@@ -1106,7 +1106,6 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
   // (that is, the prunable stuff may or may not be included)
   if (!miner_tx && !pool)
     process_unconfirmed(txid, tx, height);
-  std::vector<size_t> outs;
   std::unordered_map<cryptonote::subaddress_index, uint64_t> tx_money_got_in_outs;  // per receiving subaddress index
   crypto::public_key tx_pub_key = null_pkey;
 
@@ -1124,6 +1123,7 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
   uint64_t total_received_1 = 0;
   while (!tx.vout.empty())
   {
+    std::vector<size_t> outs;
     // if tx.vout is not empty, we loop through all tx pubkeys
 
     tx_extra_pub_key pub_key_field;
@@ -1322,7 +1322,7 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
               << " from received " << print_money(tx_scan_info[o].amount) << " output already exists with "
               << (m_transfers[kit->second].m_spent ? "spent" : "unspent") << " "
               << print_money(m_transfers[kit->second].amount()) << " in tx " << m_transfers[kit->second].m_txid << ", received output ignored");
-              THROW_WALLET_EXCEPTION_IF(tx_money_got_in_outs[tx_scan_info[o].received->index] < tx_scan_info[o].amount,
+          THROW_WALLET_EXCEPTION_IF(tx_money_got_in_outs[tx_scan_info[o].received->index] < tx_scan_info[o].amount,
               error::wallet_internal_error, "Unexpected values of new and old outputs");
           tx_money_got_in_outs[tx_scan_info[o].received->index] -= tx_scan_info[o].amount;
         }
@@ -1337,9 +1337,9 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
           THROW_WALLET_EXCEPTION_IF(m_transfers[kit->second].amount() > tx_scan_info[o].amount,
               error::wallet_internal_error, "Unexpected values of new and old outputs");
           tx_money_got_in_outs[tx_scan_info[o].received->index] -= m_transfers[kit->second].amount();
+
           uint64_t amount = tx.vout[o].amount ? tx.vout[o].amount : tx_scan_info[o].amount;
           uint64_t extra_amount = amount - m_transfers[kit->second].amount();
-
           if (!pool)
           {
             transfer_details &td = m_transfers[kit->second];
@@ -1382,7 +1382,6 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
 	      m_callback->on_money_received(height, txid, tx, td.m_amount, td.m_subaddr_index);
           }
           total_received_1 += extra_amount;
-
         }
       }
     }
@@ -1456,10 +1455,14 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
   }
 
   // remove change sent to the spending subaddress account from the list of received funds
+  uint64_t sub_change = 0;
   for (auto i = tx_money_got_in_outs.begin(); i != tx_money_got_in_outs.end();)
   {
     if (subaddr_account && i->first.major == *subaddr_account)
+    {
+      sub_change += i->second;
       i = tx_money_got_in_outs.erase(i);
+    }
     else
       ++i;
   }
@@ -1506,7 +1509,7 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
       LOG_PRINT_L2("Found unencrypted payment ID: " << payment_id);
     }
 
-    uint64_t total_received_2 = 0;
+    uint64_t total_received_2 = sub_change;
     for (const auto& i : tx_money_got_in_outs)
       total_received_2 += i.second;
     if (total_received_1 != total_received_2)
@@ -10225,7 +10228,7 @@ std::string wallet2::make_uri(const std::string &address, const std::string &pay
     }
   }
 
-  std::string uri = "Pyrexcoin:" + address;
+  std::string uri = "monero:" + address;
   unsigned int n_fields = 0;
 
   if (!payment_id.empty())
@@ -10254,9 +10257,9 @@ std::string wallet2::make_uri(const std::string &address, const std::string &pay
 //----------------------------------------------------------------------------------------------------
 bool wallet2::parse_uri(const std::string &uri, std::string &address, std::string &payment_id, uint64_t &amount, std::string &tx_description, std::string &recipient_name, std::vector<std::string> &unknown_parameters, std::string &error)
 {
-  if (uri.substr(0, 7) != "Pyrexcoin:")
+  if (uri.substr(0, 7) != "monero:")
   {
-    error = std::string("URI has wrong scheme (expected \"Pyrexcoin:\"): ") + uri;
+    error = std::string("URI has wrong scheme (expected \"monero:\"): ") + uri;
     return false;
   }
 
