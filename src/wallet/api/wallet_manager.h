@@ -73,6 +73,7 @@ public:
     virtual bool closeWallet(Wallet *wallet, bool store = true);
     bool walletExists(const std::string &path);
     bool verifyWalletPassword(const std::string &keys_file_name, const std::string &password, bool no_spend_key) const;
+    int queryWalletHardware(const std::string &keys_file_name, const std::string &password) const;
     std::vector<std::string> findWallets(const std::string &path);
     std::string errorString() const;
     void setDaemonAddress(const std::string &address);

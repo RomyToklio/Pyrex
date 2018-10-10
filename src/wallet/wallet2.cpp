@@ -2976,6 +2976,60 @@ bool wallet2::verify_password(const std::string& keys_file_name, const epee::wip
 }
 
 /*!
+ * \brief determine the key storage for the specified wallet file
+ * \param keys_file_name  Keys file to verify password for
+ * \param password        Password to verify
+ * \return                -1: incorrect password, 0 = default hw, 1 ledger hw
+ *
+ * for verification only - determines key storage hardware
+ *
+ */
+int wallet2::query_hardware(const std::string& keys_file_name, const epee::wipeable_string& password)
+{
+  int key_on_device = 0;
+  rapidjson::Document json;
+  wallet2::keys_file_data keys_file_data;
+  std::string buf;
+  bool r = epee::file_io_utils::load_file_to_string(keys_file_name, buf);
+  THROW_WALLET_EXCEPTION_IF(!r, error::file_read_error, keys_file_name);
+
+  // Decrypt the contents
+  r = ::serialization::parse_binary(buf, keys_file_data);
+  THROW_WALLET_EXCEPTION_IF(!r, error::wallet_internal_error, "internal error: failed to deserialize \"" + keys_file_name + '\"');
+  crypto::chacha_key key;
+  crypto::generate_chacha_key(password.data(), password.size(), key);
+  std::string account_data;
+  account_data.resize(keys_file_data.account_data.size());
+  crypto::chacha20(keys_file_data.account_data.data(), keys_file_data.account_data.size(), key, keys_file_data.iv, &account_data[0]);
+  if (json.Parse(account_data.c_str()).HasParseError() || !json.IsObject())
+    crypto::chacha8(keys_file_data.account_data.data(), keys_file_data.account_data.size(), key, keys_file_data.iv, &account_data[0]);
+
+  // The contents should be JSON if the wallet follows the new format.
+  if (json.Parse(account_data.c_str()).HasParseError())
+  {
+    // old format before JSON wallet key file format
+  }
+  else
+  {
+    account_data = std::string(json["key_data"].GetString(), json["key_data"].GetString() +
+      json["key_data"].GetStringLength());
+
+    if (json.HasMember("key_on_device"))
+    {
+      GET_FIELD_FROM_JSON_RETURN_ON_ERROR(json, key_on_device, int, Int, false, false);
+      key_on_device = field_key_on_device;
+    }
+  }
+
+  cryptonote::account_base account_data_check;
+
+  r = epee::serialization::load_t_from_binary(account_data_check, account_data);
+  if (!r) return -1;
+  return key_on_device;
+}
+
+
+/*!
  * \brief  Generates a wallet or restores one.
  * \param  wallet_        Name of wallet file
  * \param  password       Password of wallet file

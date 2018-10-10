@@ -604,6 +604,12 @@ bool WalletImpl::recoverFromDevice(const std::string &path, const std::string &p
     return true;
 }
 
+bool WalletImpl::isKeyOnDevice() const
+{
+	    return m_wallet->key_on_device();
+}
+
+
 bool WalletImpl::open(const std::string &path, const std::string &password)
 {
     clearStatus();

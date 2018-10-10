@@ -79,6 +79,7 @@ public:
     bool recoverFromDevice(const std::string &path,
                            const std::string &password,
                            const std::string &device_name);
+    bool isKeyOnDevice() const;
     bool close(bool store = true);
     std::string seed() const;
     std::string getSeedLanguage() const;
