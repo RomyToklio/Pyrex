@@ -117,7 +117,7 @@ static const struct {
   // version 9 starts from block 1686275, which is on or around the 19th of October, 2018. Fork time finalised on 2018-09-02.
   { 9, 73595, 0, 1541511823 },
 };
-static const uint64_t mainnet_hard_fork_version_1_till = 1009826;
+static const uint64_t mainnet_hard_fork_version_1_till = 19;
 
 static const struct {
   uint8_t version;
@@ -140,12 +140,12 @@ static const struct {
   // version 5 starts from block 80, which is on or around the 15th of April, 2017. Fork time finalised on 2017-03-14.
   { 5, 80, 0, 1489520158 },  
 
-  { 6, 971400, 0, 1501709789 },
-  { 7, 1057027, 0, 1512211236 },
-  { 8, 1057058, 0, 1533211200 },
-  { 9, 1057778, 0, 1533297600 },
+  { 6, 559, 0, 1540190226 },
+  { 7, 575, 0, 1540193826 },
+  { 8, 590, 0, 1540197426 },
+  { 9, 610, 0, 1540201026 },
 };
-static const uint64_t testnet_hard_fork_version_1_till = 624633;
+static const uint64_t testnet_hard_fork_version_1_till = 19;
 
 static const struct {
   uint8_t version;
