@@ -314,7 +314,7 @@ application.
 
 * If you would like a specific [version/tag](https://github.com/pyrex-project/pyrex/tags), do a git checkout for that version. eg. 'v0.12.1.0'. If you dont care about the version and just want binaries from master, skip this step:
 	
-        git checkout v0.13.0.0
+        git checkout v0.13.0.4
 
 * If you are on a 64-bit system, run:
 
@@ -375,7 +375,7 @@ Note: do not use the boost package provided by OpenBSD, as we are installing boo
 ```
 # Create boost building directory
 mkdir ~/boost
-cd ~/boost
+cd ~/boosts
 
 # Fetch boost source
 ftp -o boost_1_64_0.tar.bz2 https://netcologne.dl.sourceforge.net/project/boost/boost/1.64.0/boost_1_64_0.tar.bz2 

@@ -1042,7 +1042,7 @@ Questa transazione verrà sbloccata al blocco %llu, in approssimativamente %s gi
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="679"/>
-        <source>Current fee is %s monero per kB</source>
+        <source>Current fee is %s Pyrexcoin per kB</source>
         <translation>La commissione attuale è %s Pyrexcoin(j) per kB</translation>
     </message>
     <message>
@@ -1454,8 +1454,8 @@ Questa transazione verrà sbloccata al blocco %llu, in approssimativamente %s gi
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="1622"/>
-        <source>Donate &lt;amount&gt; to the development team (donate.getmonero.org).</source>
-        <translation>Dona &lt;amount&gt; al team di sviluppo (donate.getmonero.org).</translation>
+        <source>Donate &lt;amount&gt; to the development team (donate.pyrexcoin.com).</source>
+        <translation>Dona &lt;amount&gt; al team di sviluppo (donate.pyrexcoin.com).</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="1625"/>
@@ -1586,7 +1586,7 @@ If the &quot;tag_description&quot; argument is specified, the tag &lt;tag_name&g
  confirm-missing-payment-id &lt;1|0&gt;
  ask-password &lt;1|0&gt;
  unit &lt;monero|millinero|micronero|nanonero|piconero&gt;
-   Set the default monero (sub-)unit.
+   Set the default Pyrexcoin (sub-)unit.
  min-outputs-count [n]
    Try to keep at least that many outputs of value at least min-outputs-value.
  min-outputs-value [n]
@@ -3681,7 +3681,7 @@ Outputs per *: </source>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="129"/>
-        <source>The newly created transaction will not be relayed to the monero network</source>
+        <source>The newly created transaction will not be relayed to the Pyrexcoin network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3701,7 +3701,7 @@ Outputs per *: </source>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="6787"/>
-        <source>This is the command line monero wallet. It needs to connect to a monero
+        <source>This is the command line Pyrexcoin wallet. It needs to connect to a Pyrexcoin
 daemon to work correctly.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3944,7 +3944,7 @@ daemon to work correctly.</source>
     </message>
     <message>
         <location filename="../src/wallet/wallet_rpc_server.cpp" line="2870"/>
-        <source>This is the RPC monero wallet. It needs to connect to a monero
+        <source>This is the RPC Pyrexcoin wallet. It needs to connect to a Pyrexcoin
 daemon to work correctly.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4052,7 +4052,7 @@ daemon to work correctly.</source>
     </message>
     <message>
         <location filename="../src/wallet/wallet_args.cpp" line="138"/>
-        <source>This is the command line monero wallet. It needs to connect to a monero
+        <source>This is the command line Pyrexcoin wallet. It needs to connect to a Pyrexcoin
 daemon to work correctly.</source>
         <translation type="unfinished"></translation>
     </message>
