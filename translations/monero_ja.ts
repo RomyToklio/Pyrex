@@ -177,7 +177,7 @@
         <location filename="../src/wallet/api/wallet.cpp" line="1170"/>
         <location filename="../src/wallet/api/wallet.cpp" line="1274"/>
         <source>not enough money to transfer, available only %s, sent amount %s</source>
-        <translation>振替でMoneroを受け取ることできません。利用可能な金額： %s,  取引の金額： %s</translation>
+        <translation>振替でpyrexcoinを受け取ることできません。利用可能な金額： %s,  取引の金額： %s</translation>
     </message>
     <message>
         <location filename="../src/wallet/api/wallet.cpp" line="474"/>
@@ -278,7 +278,7 @@
         <location filename="../src/wallet/api/wallet.cpp" line="1179"/>
         <location filename="../src/wallet/api/wallet.cpp" line="1283"/>
         <source>not enough money to transfer, overall balance only %s, sent amount %s</source>
-        <translation>振替でMoneroを受け取ることできません。利用可能な金額： %s,  取引の金額： %s</translation>
+        <translation>振替でpyrexcoinを受け取ることできません。利用可能な金額： %s,  取引の金額： %s</translation>
     </message>
     <message>
         <location filename="../src/wallet/api/wallet.cpp" line="1188"/>
@@ -1139,7 +1139,7 @@ This transaction will unlock on block %llu, in approximately %s days (assuming 2
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="679"/>
-        <source>Current fee is %s monero per kB</source>
+        <source>Current fee is %s pyrexcoin per kB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1551,7 +1551,7 @@ This transaction will unlock on block %llu, in approximately %s days (assuming 2
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="1622"/>
-        <source>Donate &lt;amount&gt; to the development team (donate.getmonero.org).</source>
+        <source>Donate &lt;amount&gt; to the development team (donate.pyrexcoin.com).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1683,7 +1683,7 @@ If the &quot;tag_description&quot; argument is specified, the tag &lt;tag_name&g
  confirm-missing-payment-id &lt;1|0&gt;
  ask-password &lt;1|0&gt;
  unit &lt;monero|millinero|micronero|nanonero|piconero&gt;
-   Set the default monero (sub-)unit.
+   Set the default pyrexcoin (sub-)unit.
  min-outputs-count [n]
    Try to keep at least that many outputs of value at least min-outputs-value.
  min-outputs-value [n]
@@ -2149,7 +2149,7 @@ Otherwise, you prove the reserve of the smallest possible amount above &lt;amoun
 To start synchronizing with the daemon, use the &quot;refresh&quot; command.
 Use the &quot;help&quot; command to see the list of available commands.
 Use &quot;help &lt;command&gt;&quot; to see a command&apos;s documentation.
-Always use the &quot;exit&quot; command when closing monero-wallet-cli to save 
+Always use the &quot;exit&quot; command when closing pyrexcoin-wallet-cli to save 
 your current session&apos;s state. Otherwise, you might need to synchronize 
 your wallet again (your wallet keys are NOT at risk in any case).
 </source>
@@ -3673,7 +3673,7 @@ Outputs per *: </source>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="129"/>
-        <source>The newly created transaction will not be relayed to the monero network</source>
+        <source>The newly created transaction will not be relayed to the pyrexcoin network</source>
         <translation>新しい取引をネットワークに中継しません</translation>
     </message>
     <message>
@@ -3693,9 +3693,9 @@ Outputs per *: </source>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="6787"/>
-        <source>This is the command line monero wallet. It needs to connect to a monero
+        <source>This is the command line pyrexcoin wallet. It needs to connect to a pyrexcoin
 daemon to work correctly.</source>
-        <translation>これはMoneroのコマンドラインウォレットです。別のMoneroデモンと接続する必要があります。</translation>
+        <translation>これはpyrexcoinのコマンドラインウォレットです。別のpyrexcoinデモンと接続する必要があります。</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="6801"/>
@@ -3936,9 +3936,9 @@ daemon to work correctly.</source>
     </message>
     <message>
         <location filename="../src/wallet/wallet_rpc_server.cpp" line="2870"/>
-        <source>This is the RPC monero wallet. It needs to connect to a monero
+        <source>This is the RPC pyrexcoin wallet. It needs to connect to a pyrexcoin
 daemon to work correctly.</source>
-        <translation>これはMoneroのコマンドラインウォレットです。別のMoneroデモンと接続する必要があります。</translation>
+        <translation>これはpyrexcoinのコマンドラインウォレットです。別のpyrexcoinデモンと接続する必要があります。</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet_rpc_server.cpp" line="2893"/>
@@ -4044,9 +4044,9 @@ daemon to work correctly.</source>
     </message>
     <message>
         <location filename="../src/wallet/wallet_args.cpp" line="138"/>
-        <source>This is the command line monero wallet. It needs to connect to a monero
+        <source>This is the command line pyrexcoin wallet. It needs to connect to a pyrexcoin
 daemon to work correctly.</source>
-        <translation>これはMoneroのコマンドラインウォレットです。別のMoneroデモンと接続する必要があります。</translation>
+        <translation>これはpyrexcoinのコマンドラインウォレットです。別のpyrexcoinデモンと接続する必要があります。</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet_args.cpp" line="161"/>
