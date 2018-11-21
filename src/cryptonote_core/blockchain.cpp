@@ -185,7 +185,7 @@ static const struct {
   uint64_t height;
 } testnet_difficulties_versions[] = {
   { 1, 1 },
-  { 2, 619 },
+  { 2, 625 },
 };
 static const struct {
   uint8_t version;
@@ -905,7 +905,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     m_difficulties = difficulties;
   }
   size_t target = get_difficulty_target();
-  LOG_PRINT_L1("Difficulty algo version #" << get_difficulty_version() << " for height #" << m_db->height());
+  //LOG_PRINT_L1("Difficulty algo version #" << get_difficulty_version() << " for height #" << m_db->height());
  
   switch(get_difficulty_version()){
     case 1:
@@ -4473,6 +4473,7 @@ uint64_t Blockchain::get_difficulty_target() const
 }
 uint64_t Blockchain::get_difficulty_version() const
 { 
+  //LOG_PRINT_L1("-+-----> Using " << m_nettype << " network");
   uint16_t version = 1;
   if (m_nettype == FAKECHAIN)
   {
@@ -4480,8 +4481,10 @@ uint64_t Blockchain::get_difficulty_version() const
   }
   else if (m_nettype == TESTNET)
   {
-    for (size_t n = 0; n < sizeof(testnet_difficulties_versions); n++){
+    for (size_t n = 0; n < sizeof(testnet_difficulties_versions) / sizeof(testnet_difficulties_versions[0]); n++){
       if(m_db->height() >= testnet_difficulties_versions[n].height){
+        //LOG_PRINT_L1("-+-----> Value " << n );
+        //LOG_PRINT_L1("-+-----> For version " << testnet_difficulties_versions[n].version);
         version = testnet_difficulties_versions[n].version;
       }else {
         break;
@@ -4490,7 +4493,7 @@ uint64_t Blockchain::get_difficulty_version() const
   }
   else if (m_nettype == STAGENET)
   {
-    for (size_t n = 0; n < sizeof(stagenet_difficulties_versions); n++){
+    for (size_t n = 0; n < sizeof(stagenet_difficulties_versions) / sizeof(stagenet_difficulties_versions[0]); n++){
       if(m_db->height() >= stagenet_difficulties_versions[n].height){
         version = stagenet_difficulties_versions[n].version;
       }else {
@@ -4500,7 +4503,7 @@ uint64_t Blockchain::get_difficulty_version() const
   }
   else
   {
-    for (size_t n = 0; n < sizeof(mainnet_difficulties_versions); n++){
+    for (size_t n = 0; n < sizeof(mainnet_difficulties_versions) / sizeof(mainnet_difficulties_versions[0]); n++){
       if(m_db->height() >= mainnet_difficulties_versions[n].height){
         version = mainnet_difficulties_versions[n].version;
       }else {
@@ -4508,7 +4511,7 @@ uint64_t Blockchain::get_difficulty_version() const
       }
     }
   }
-  
+  LOG_PRINT_L1("-+-----> Diff algo #" << version << " for height #" << m_db->height());
   return version;
 }
 
