@@ -185,7 +185,7 @@ static const struct {
   uint64_t height;
 } testnet_difficulties_versions[] = {
   { 1, 1 },
-  { 2, 20 },
+  { 2, 619 },
 };
 static const struct {
   uint8_t version;
