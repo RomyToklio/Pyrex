@@ -821,13 +821,6 @@ namespace cryptonote
     uint64_t get_difficulty_target() const;
 
     /**
-     * @brief get difficulty version based on chain and hardfork version
-     *
-     * @return difficulty version
-     */
-    uint64_t get_difficulty_version() const;
-
-    /**
      * @brief remove transactions from the transaction pool (if present)
      *
      * @param txids a list of hashes of transactions to be removed
