@@ -114,7 +114,7 @@ static const struct {
   // version 9 starts from block 1686275, which is on or around the 19th of October, 2018. Fork time finalised on 2018-09-02.
   { 9, 73595, 0, 1541511823 },
   // version 10 starts from block 77850
-  { 10, 77850, 0, 1542979830 },
+  { 10, 77850, 0, 1542911469 },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = 19;
 
@@ -1430,12 +1430,24 @@ bool Blockchain::create_block_template(block& b, const account_public_address& m
 bool Blockchain::complete_timestamps_vector(uint64_t start_top_height, std::vector<uint64_t>& timestamps)
 {
   LOG_PRINT_L3("Blockchain::" << __func__);
-
-  if(timestamps.size() >= BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW)
+  uint8_t hf_version = m_hardfork->get_current_version();
+  if(hf_version <= 9){
+      if(timestamps.size() >= BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW)
     return true;
+  }else {
+      if(timestamps.size() >= BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V2)
+    return true;
+  }
+  
 
   CRITICAL_REGION_LOCAL(m_blockchain_lock);
   size_t need_elements = BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW - timestamps.size();
+  if(hf_version <= 9){
+      need_elements = BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW - timestamps.size();
+  }else {
+      need_elements = BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V2 - timestamps.size();
+  }
+  
   CHECK_AND_ASSERT_MES(start_top_height < m_db->height(), false, "internal error: passed start_height not < " << " m_db->height() -- " << start_top_height << " >= " << m_db->height());
   size_t stop_offset = start_top_height > need_elements ? start_top_height - need_elements : 0;
   timestamps.reserve(timestamps.size() + start_top_height - stop_offset);
@@ -3153,16 +3165,19 @@ bool Blockchain::check_block_timestamp(std::vector<uint64_t>& timestamps, const 
   median_ts = epee::misc_utils::median(timestamps);
 
   size_t blockchain_timestamp_check_window;
+  uint64_t cryptonote_block_future_time_limit;
   uint8_t hf_version = get_current_hard_fork_version();
   if(hf_version <= 9){
       blockchain_timestamp_check_window = BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW;
+      cryptonote_block_future_time_limit = CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT;
   }else {
       blockchain_timestamp_check_window = BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V2;
+      cryptonote_block_future_time_limit = CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V2;
   }
   uint64_t top_block_timestamp = timestamps.back();
-  if (hf_version > 8 && b.timestamp < top_block_timestamp - CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V2)
+  if (hf_version > 8 && b.timestamp < top_block_timestamp - cryptonote_block_future_time_limit)
   {
-    LOG_PRINT_L3("Timestamp of block with id: " << get_block_hash(b) << ", " << b.timestamp << ", is less than top block timestamp - FTL " << top_block_timestamp - CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V2);
+    LOG_PRINT_L3("Timestamp of block with id: " << get_block_hash(b) << ", " << b.timestamp << ", is less than top block timestamp - FTL " << top_block_timestamp - cryptonote_block_future_time_limit);
     return false;
   }
 
