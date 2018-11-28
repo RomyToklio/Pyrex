@@ -6,7 +6,7 @@ Portions Copyright (c) 2012-2013 The Cryptonote developers.
 ## Development resources
 
 - Web: [pyrexcoin.com](http://pyrexcoin.com/)
-- Coinmarketcap rating:  Soon
+- Coinmarketcap rating: https://coinmarketcap.com/currencies/pyrexcoin/ 
 - Mail: [admin@pyrexcoin.com](mailto:admin@pyrexcoin.com)
 - GitHub: [https://github.com/pyrex-project/pyrex](https://github.com/pyrex-project/pyrex)
 - Exchanges: Soon
