@@ -7,7 +7,7 @@ Portions Copyright (c) 2012-2013 The Cryptonote developers.
 
 - Web: [pyrexcoin.com](http://pyrexcoin.com/)
 - Coinmarketcap rating:  Soon
-- Mail: [kazoil.kz@gmail.com](mailto:kazoil.kz@gmail.com)
+- Mail: [admin@pyrexcoin.com](mailto:admin@pyrexcoin.com)
 - GitHub: [https://github.com/pyrex-project/pyrex](https://github.com/pyrex-project/pyrex)
 - Exchanges: Soon
 
