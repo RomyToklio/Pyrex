@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Monero Project
+// Copyright (c) 2014-2018, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -26,54 +26,27 @@
 // STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifdef __GLIBC__
-#include <sys/stat.h>
-#endif
+#include <libusb.h>
 
-#include "gtest/gtest.h"
+#define UNUSED(expr) (void)(expr)
 
-#include <boost/filesystem.hpp>
+int main(int argc, char *argv[]) {
+  libusb_device **devs;
+  libusb_context *ctx = NULL;
 
-#include "misc_language.h"
-#include "string_tools.h"
-#include "file_io_utils.h"
-#include "common/notify.h"
+  int r = libusb_init(&ctx); UNUSED(r);
+  ssize_t cnt = libusb_get_device_list(ctx, &devs); UNUSED(cnt);
 
-TEST(notify, works)
-{
-#ifdef __GLIBC__
-  mode_t prevmode = umask(077);
-#endif
-  const char *tmp = getenv("TEMP");
-  if (!tmp)
-    tmp = "/tmp";
-  static const char *filename = "monero-notify-unit-test-XXXXXX";
-  const size_t len = strlen(tmp) + 1 + strlen(filename);
-  std::unique_ptr<char[]> name_template_(new char[len + 1]);
-  char *name_template = name_template_.get();
-  ASSERT_TRUE(name_template != NULL);
-  snprintf(name_template, len + 1, "%s/%s", tmp, filename);
-  int fd = mkstemp(name_template);
-#ifdef __GLIBC__
-  umask(prevmode);
-#endif
-  ASSERT_TRUE(fd >= 0);
-  close(fd);
+  struct libusb_device_descriptor desc;
+  r = libusb_get_device_descriptor(devs[0], &desc); UNUSED(r);
+  uint8_t bus_id = libusb_get_bus_number(devs[0]); UNUSED(bus_id);
+  uint8_t addr = libusb_get_device_address(devs[0]); UNUSED(addr);
 
-  const std::string spec = epee::string_tools::get_current_module_folder() + "/test_notifier"
-#ifdef _WIN32
-      + ".exe"
-#endif
-      + " " + name_template + " %s";
+  uint8_t tmp_path[16];
+  r = libusb_get_port_numbers(devs[0], tmp_path, sizeof(tmp_path));
+  UNUSED(r);
+  UNUSED(tmp_path);
 
-  tools::Notify notify(spec.c_str());
-  notify.notify("1111111111111111111111111111111111111111111111111111111111111111");
-
-  epee::misc_utils::sleep_no_w(100);
-
-  std::string s;
-  ASSERT_TRUE(epee::file_io_utils::load_file_to_string(name_template, s));
-  ASSERT_TRUE(s == "1111111111111111111111111111111111111111111111111111111111111111");
-
-  boost::filesystem::remove(name_template);
+  libusb_free_device_list(devs, 1);
+  libusb_exit(ctx);
 }

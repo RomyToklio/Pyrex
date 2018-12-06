@@ -44,7 +44,7 @@
 #include "misc_language.h"
 #include "profile_tools.h"
 #include "file_io_utils.h"
-#include "common/int-util.h"
+#include "int-util.h"
 #include "common/threadpool.h"
 #include "common/boost_serialization_helper.h"
 #include "warnings.h"
@@ -248,7 +248,7 @@ bool Blockchain::scan_outputkeys_for_indexes(size_t tx_version, const txin_to_ke
   {
     try
     {
-      m_db->get_output_key(tx_in_to_key.amount, absolute_offsets, outputs, true);
+      m_db->get_output_key(epee::span<const uint64_t>(&tx_in_to_key.amount, 1), absolute_offsets, outputs, true);
       if (absolute_offsets.size() != outputs.size())
       {
         MERROR_VER("Output does not exist! amount = " << tx_in_to_key.amount);
@@ -274,7 +274,7 @@ bool Blockchain::scan_outputkeys_for_indexes(size_t tx_version, const txin_to_ke
         add_offsets.push_back(absolute_offsets[i]);
       try
       {
-        m_db->get_output_key(tx_in_to_key.amount, add_offsets, add_outputs, true);
+        m_db->get_output_key(epee::span<const uint64_t>(&tx_in_to_key.amount, 1), add_offsets, add_outputs, true);
         if (add_offsets.size() != add_outputs.size())
         {
           MERROR_VER("Output does not exist! amount = " << tx_in_to_key.amount);
@@ -423,7 +423,7 @@ bool Blockchain::init(BlockchainDB* db, const network_type nettype, bool offline
   if(!m_db->height())
   {
     MINFO("Blockchain not loaded, generating genesis block.");
-    block bl = boost::value_initialized<block>();
+    block bl;
     block_verification_context bvc = boost::value_initialized<block_verification_context>();
     generate_genesis_block(bl, get_config(m_nettype).GENESIS_TX, get_config(m_nettype).GENESIS_NONCE);
     add_new_block(bl, bvc);
@@ -937,7 +937,7 @@ bool Blockchain::rollback_blockchain_switching(std::list<block>& original_chain,
   m_hardfork->reorganize_from_chain_height(rollback_height);
 
   MINFO("Rollback to height " << rollback_height << " was successful.");
-  if (original_chain.size())
+  if (!original_chain.empty())
   {
     MINFO("Restoration to previous blockchain successful as well.");
   }
@@ -1517,7 +1517,7 @@ bool Blockchain::handle_alternative_block(const block& b, const crypto::hash& id
 
     // if block to be added connects to known blocks that aren't part of the
     // main chain -- that is, if we're adding on to an alternate chain
-    if(alt_chain.size())
+    if(!alt_chain.empty())
     {
       // make sure alt chain doesn't somehow start past the end of the main chain
       CHECK_AND_ASSERT_MES(m_db->height() > alt_chain.front()->second.height, false, "main blockchain wrong height");
@@ -1800,16 +1800,34 @@ bool Blockchain::get_outs(const COMMAND_RPC_GET_OUTPUTS_BIN::request& req, COMMA
 
   res.outs.clear();
   res.outs.reserve(req.outputs.size());
+
+  std::vector<cryptonote::output_data_t> data;
   try
   {
+    std::vector<uint64_t> amounts, offsets;
+    amounts.reserve(req.outputs.size());
+    offsets.reserve(req.outputs.size());
     for (const auto &i: req.outputs)
     {
-      // get tx_hash, tx_out_index from DB
-      const output_data_t od = m_db->get_output_key(i.amount, i.index);
-      tx_out_index toi = m_db->get_output_tx_and_index(i.amount, i.index);
-      bool unlocked = is_tx_spendtime_unlocked(m_db->get_tx_unlock_time(toi.first));
+      amounts.push_back(i.amount);
+      offsets.push_back(i.index);
+    }
+    m_db->get_output_key(epee::span<const uint64_t>(amounts.data(), amounts.size()), offsets, data);
+    if (data.size() != req.outputs.size())
+    {
+      MERROR("Unexpected output data size: expected " << req.outputs.size() << ", got " << data.size());
+      return false;
+    }
+    for (const auto &t: data)
+      res.outs.push_back({t.pubkey, t.commitment, is_tx_spendtime_unlocked(t.unlock_time), t.height, crypto::null_hash});
 
-      res.outs.push_back({od.pubkey, od.commitment, unlocked, od.height, toi.first});
+    if (req.get_txid)
+    {
+      for (size_t i = 0; i < req.outputs.size(); ++i)
+      {
+        tx_out_index toi = m_db->get_output_tx_and_index(req.outputs[i].amount, req.outputs[i].index);
+        res.outs[i].txid = toi.first;
+      }
     }
   }
   catch (const std::exception &e)
@@ -1890,7 +1908,7 @@ bool Blockchain::find_blockchain_supplement(const std::list<crypto::hash>& qbloc
 
   // make sure the request includes at least the genesis block, otherwise
   // how can we expect to sync from the client that the block list came from?
-  if(!qblock_ids.size())
+  if(qblock_ids.empty())
   {
     MCERROR("net.p2p", "Client sent wrong NOTIFY_REQUEST_CHAIN: m_block_ids.size()=" << qblock_ids.size() << ", dropping connection");
     return false;
@@ -3860,7 +3878,7 @@ void Blockchain::output_scan_worker(const uint64_t amount, const std::vector<uin
 {
   try
   {
-    m_db->get_output_key(amount, offsets, outputs, true);
+    m_db->get_output_key(epee::span<const uint64_t>(&amount, 1), offsets, outputs, true);
   }
   catch (const std::exception& e)
   {
