@@ -133,25 +133,25 @@ static const struct {
   { 1, 1, 0, 1341378000 },
 
   // version 2 starts from block 20, which is on or around the 20th of March, 2016. Fork time finalised on 2015-09-20. No fork voting occurs for the v2 fork.
-  { 2, 2, 0, 1442763710 },
+  { 2, 15, 0, 1442763710 },
 
   // version 3 starts from block 40, which is on or around the 24th of September, 2016. Fork time finalised on 2016-03-21.
-  { 3, 4, 0, 1458558528 },
+  { 3, 30, 0, 1458558528 },
   
   // version 4 starts from block 60, which is on or around the 5th of January, 2017. Fork time finalised on 2016-09-18.
-  { 4, 6, 0, 1483574400 },
+  { 4, 45, 0, 1483574400 },
   
   // version 5 starts from block 80, which is on or around the 15th of April, 2017. Fork time finalised on 2017-03-14.
-  { 5, 8, 0, 1489520158 },  
+  { 5, 60, 0, 1489520158 },  
 
-  { 6, 10, 0, 1540190226 },
-  { 7, 12, 0, 1540193826 },
-  { 8, 14, 0, 1540197426 },
-  { 9, 16, 0, 1540201026 },
+  { 6, 75, 0, 1540190226 },
+  { 7, 90, 0, 1540193826 },
+  { 8, 105, 0, 1540197426 },
+  { 9, 115, 0, 1540201026 },
   // version 10 starts from block 77850
-  { 10, 18, 0, 1542903118 },
-  { 11, 20, 0, 1554478208 },
-  { 12, 22, 0, 1554488208 },
+  { 10, 130, 0, 1542903118 },
+  { 11, 145, 0, 1554478208 },
+  { 12, 160, 0, 1554488208 },
 
 };
 static const uint64_t testnet_hard_fork_version_1_till = 19;
