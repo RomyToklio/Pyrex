@@ -111,11 +111,15 @@ namespace cryptonote {
     if (median_weight < full_reward_zone) {
       median_weight = full_reward_zone;
     }
-
+    if(version >= HF_VERSION_LONG_TERM_BLOCK_WEIGHT){
+      reward = CRYPTONOTE_BLOCK_GRANTED_STATIC_REWARD_V1;
+      return true;
+    }
     if (current_block_weight <= median_weight) {
       reward = base_reward;
       return true;
     }
+
 
     if(current_block_weight > 2 * median_weight) {
       MERROR("Block cumulative weight is too big: " << current_block_weight << ", expected less than " << 2 * median_weight);

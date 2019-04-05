@@ -44,6 +44,8 @@ message(STATUS "CMake version ${CMAKE_VERSION}")
 
 project(pyrexcoin)
 
+enable_language(C ASM)
+
 function (die msg)
   if (NOT WIN32)
     string(ASCII 27 Esc)
@@ -113,6 +115,9 @@ string(TOLOWER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE_LOWER)
 # to identify the target architecture, to direct logic in this cmake script.
 # Since ARCH is a cached variable, it will not be set on first cmake invocation.
 if (NOT ARCH OR ARCH STREQUAL "" OR ARCH STREQUAL "native" OR ARCH STREQUAL "default")
+  if(CMAKE_SYSTEM_PROCESSOR STREQUAL "")
+    set(CMAKE_SYSTEM_PROCESSOR ${CMAKE_HOST_SYSTEM_PROCESSOR})
+  endif()
   set(ARCH_ID "${CMAKE_SYSTEM_PROCESSOR}")
 else()
   set(ARCH_ID "${ARCH}")
@@ -428,6 +433,8 @@ if (UNIX AND NOT APPLE)
   # Note that at the time of this writing the -Wstrict-prototypes flag added below will make this fail
   set(THREADS_PREFER_PTHREAD_FLAG ON)
   find_package(Threads)
+  add_c_flag_if_supported(-pthread CMAKE_C_FLAGS)
+  add_cxx_flag_if_supported(-pthread CMAKE_CXX_FLAGS)
 endif()
 
 # Handle OpenSSL, used for sha256sum on binary updates and light wallet ssl http
