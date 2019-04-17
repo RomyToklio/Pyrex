@@ -3130,14 +3130,15 @@ bool Blockchain::check_block_timestamp(std::vector<uint64_t>& timestamps, const 
   LOG_PRINT_L3("Blockchain::" << __func__);
   median_ts = epee::misc_utils::median(timestamps);
 
-  size_t blockchain_timestamp_check_window;
-  uint8_t hf_version = get_current_hard_fork_version();
+  size_t blockchain_timestamp_check_window = BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW;
+  /*uint8_t hf_version = get_current_hard_fork_version();
   if(hf_version <= 9){
       blockchain_timestamp_check_window = BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW;
   }else {
-      //blockchain_timestamp_check_window = BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V2;
-  }
-  /*uint64_t top_block_timestamp = timestamps.back();
+      blockchain_timestamp_check_window = BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V2;
+  }*/
+  /*
+  uint64_t top_block_timestamp = timestamps.back();
   if (hf_version > 8 && b.timestamp < top_block_timestamp - BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V2)
   {
     LOG_PRINT_L3("Timestamp of block with id: " << get_block_hash(b) << ", " << b.timestamp << ", is less than top block timestamp - FTL " << top_block_timestamp - blockchain_timestamp_check_window);
