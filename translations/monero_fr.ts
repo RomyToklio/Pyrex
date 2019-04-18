@@ -1586,8 +1586,8 @@ Cette transaction sera déverrouillée au bloc %llu, dans approximativement %s j
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="2283"/>
-        <source>Donate &lt;amount&gt; to the development team (donate.getmonero.org).</source>
-        <translation>Donner &lt;montant&gt; à l&apos;équipe de développement (donate.getmonero.org).</translation>
+        <source>Donate &lt;amount&gt; to the development team (donate.pyrexcoin.com).</source>
+        <translation>Donner &lt;montant&gt; à l&apos;équipe de développement (donate.pyrexcoin.com).</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="2290"/>
@@ -2869,8 +2869,8 @@ Attention&#xa0;: Certaines clés d&apos;entrées étant dépensées sont issues 
    Set the fee to default/unimportant/normal/elevated/priority.
  confirm-missing-payment-id &lt;1|0&gt;
  ask-password &lt;0|1|2   (or never|action|decrypt)&gt;
- unit &lt;monero|millinero|micronero|nanonero|piconero&gt;
-   Set the default monero (sub-)unit.
+ unit &lt;pyrexcoin|millinero|micronero|nanonero|piconero&gt;
+   Set the default pyrexcoin (sub-)unit.
  min-outputs-count [n]
    Try to keep at least that many outputs of value at least min-outputs-value.
  min-outputs-value [n]
@@ -2886,12 +2886,12 @@ Attention&#xa0;: Certaines clés d&apos;entrées étant dépensées sont issues 
  auto-low-priority &lt;1|0&gt;
    Whether to automatically use the low priority fee level when it&apos;s safe to do so.
  segregate-pre-fork-outputs &lt;1|0&gt;
-   Set this if you intend to spend outputs on both Monero AND a key reusing fork.
+   Set this if you intend to spend outputs on both Pyrexcoin AND a key reusing fork.
  key-reuse-mitigation2 &lt;1|0&gt;
-   Set this if you are not sure whether you will spend on a key reusing Monero fork later.
+   Set this if you are not sure whether you will spend on a key reusing Pyrexcoin fork later.
 subaddress-lookahead &lt;major&gt;:&lt;minor&gt;
    Set the lookahead sizes for the subaddress hash table.
-   Set this if you are not sure whether you will spend on a key reusing Monero fork later.
+   Set this if you are not sure whether you will spend on a key reusing Pyrexcoin fork later.
  segregation-height &lt;n&gt;
    Set to the height of a key reusing fork you want to use, 0 to use default.</source>
         <translation>Options disponibles :
@@ -2913,8 +2913,8 @@ subaddress-lookahead &lt;major&gt;:&lt;minor&gt;
    Utiliser les frais pour la priorité par défaut/peu importante/normale/élevée/prioritaire.
  confirm-missing-payment-id &lt;1|0&gt;
  ask-password &lt;0|1|2 (ou never|action|decrypt)&gt;
- unit &lt;monero|millinero|micronero|nanonero|piconero&gt;
-   Définir la (sous-)unité monero par défaut.
+ unit &lt;pyrexcoin|millinero|micronero|nanonero|piconero&gt;
+   Définir la (sous-)unité pyrexcoin par défaut.
  min-outputs-count [n]
    Essayer de garder au moins ce nombre de sorties d&apos;une valeur d&apos;au moins min-outputs-value.
  min-outputs-value [n]
@@ -2930,7 +2930,7 @@ subaddress-lookahead &lt;major&gt;:&lt;minor&gt;
  auto-low-priority &lt;1|0&gt;
    Utilisation automatique du niveau de frais pour la priorité basse, lorsqu&apos;il est sûr de le faire.
  segregate-pre-fork-outputs &lt;1|0&gt;
-   Activez ceci si vous prévoyez de dépenser des sorties à la fois avec Monero ET un fork réutilisant les clés.
+   Activez ceci si vous prévoyez de dépenser des sorties à la fois avec Pyrexcoin ET un fork réutilisant les clés.
  key-reuse-mitigation2 &lt;1|0&gt;
    Activez ceci si vous n&apos;êtes pas sûr de ne jamais utiliser un fork réutilisant les clés.
  subaddress-lookahead &lt;majeur&gt;:&lt;mineur&gt;
@@ -3055,8 +3055,8 @@ subaddress-lookahead &lt;major&gt;:&lt;minor&gt;
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="2650"/>
-        <source>monero, millinero, micronero, nanonero, piconero</source>
-        <translation>monero, millinero, micronero, nanonero, piconero</translation>
+        <source>pyrexcoin, millinero, micronero, nanonero, piconero</source>
+        <translation>pyrexcoin, millinero, micronero, nanonero, piconero</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="2661"/>
@@ -3527,8 +3527,8 @@ subaddress-lookahead &lt;major&gt;:&lt;minor&gt;
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="5799"/>
-        <source>Donating %s %s to The Monero Project (donate.getmonero.org or %s).</source>
-        <translation>Don de %s %s à The Monero Project (donate.getmonero.org ou %s).</translation>
+        <source>Donating %s %s to The Pyrexcoin Project (donate.pyrexcoin.com or %s).</source>
+        <translation>Don de %s %s à The Pyrexcoin Project (donate.pyrexcoin.com ou %s).</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="5971"/>
@@ -4511,8 +4511,8 @@ Sorties par *&#xa0;: </translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="333"/>
-        <source> Monero Address = </source>
-        <translation> Adresse Monero = </translation>
+        <source> Pyrexcoin Address = </source>
+        <translation> Adresse Pyrexcoin = </translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="335"/>
@@ -4672,12 +4672,12 @@ Sorties par *&#xa0;: </translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="8074"/>
-        <source>This is the command line monero wallet. It needs to connect to a monero
+        <source>This is the command line pyrexcoin wallet. It needs to connect to a pyrexcoin
 daemon to work correctly.
-WARNING: Do not reuse your Monero keys on another fork, UNLESS this fork has key reuse mitigations built in. Doing so will harm your privacy.</source>
-        <translation>Ceci est le portefeuille monero en ligne de commande.
-Il a besoin de se connecter à un démon monero pour fonctionner correctement.
-ATTENTION : Ne réutilisez pas vos clés Monero avec un autre fork, À MOINS QUE ce fork inclue des mitigations contre la réutilisation des clés. Faire ceci nuira à votre confidentialité.</translation>
+WARNING: Do not reuse your Pyrexcoin keys on another fork, UNLESS this fork has key reuse mitigations built in. Doing so will harm your privacy.</source>
+        <translation>Ceci est le portefeuille pyrexcoin en ligne de commande.
+Il a besoin de se connecter à un démon pyrexcoin pour fonctionner correctement.
+ATTENTION : Ne réutilisez pas vos clés Pyrexcoin avec un autre fork, À MOINS QUE ce fork inclue des mitigations contre la réutilisation des clés. Faire ceci nuira à votre confidentialité.</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="8099"/>
@@ -4696,8 +4696,8 @@ ATTENTION : Ne réutilisez pas vos clés Monero avec un autre fork, À MOINS QUE
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="133"/>
-        <source>The newly created transaction will not be relayed to the monero network</source>
-        <translation>La transaction nouvellement créée ne sera pas transmise au réseau monero</translation>
+        <source>The newly created transaction will not be relayed to the pyrexcoin network</source>
+        <translation>La transaction nouvellement créée ne sera pas transmise au réseau pyrexcoin</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="134"/>
@@ -4944,13 +4944,13 @@ ATTENTION : Ne réutilisez pas vos clés Monero avec un autre fork, À MOINS QUE
     </message>
     <message>
         <location filename="../src/wallet/wallet2.cpp" line="1271"/>
-        <source>Password is needed to compute key image for incoming monero</source>
-        <translation>Le mot de passe est requis pour calculer l&apos;image de clé pour les moneros entrants</translation>
+        <source>Password is needed to compute key image for incoming pyrexcoin</source>
+        <translation>Le mot de passe est requis pour calculer l&apos;image de clé pour les pyrexcoins entrants</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet2.cpp" line="1272"/>
-        <source>Invalid password: password is needed to compute key image for incoming monero</source>
-        <translation>Mot de passe invalide : le mot de passe est requis pour calculer l&apos;image de clé pour les moneros entrants</translation>
+        <source>Invalid password: password is needed to compute key image for incoming pyrexcoin</source>
+        <translation>Mot de passe invalide : le mot de passe est requis pour calculer l&apos;image de clé pour les pyrexcoins entrants</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet2.cpp" line="3496"/>
@@ -5029,10 +5029,10 @@ ATTENTION : Ne réutilisez pas vos clés Monero avec un autre fork, À MOINS QUE
     </message>
     <message>
         <location filename="../src/wallet/wallet_rpc_server.cpp" line="3495"/>
-        <source>This is the RPC monero wallet. It needs to connect to a monero
+        <source>This is the RPC pyrexcoin wallet. It needs to connect to a pyrexcoin
 daemon to work correctly.</source>
-        <translation>Ceci est le portefeuille monero par RPC. Il a besoin de se
-connecter à un démon monero pour fonctionner correctement.</translation>
+        <translation>Ceci est le portefeuille pyrexcoin par RPC. Il a besoin de se
+connecter à un démon pyrexcoin pour fonctionner correctement.</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet_rpc_server.cpp" line="3336"/>
@@ -5143,10 +5143,10 @@ connecter à un démon monero pour fonctionner correctement.</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet_args.cpp" line="144"/>
-        <source>This is the command line monero wallet. It needs to connect to a monero
+        <source>This is the command line pyrexcoin wallet. It needs to connect to a pyrexcoin
 daemon to work correctly.</source>
-        <translation>Ceci est le portefeuille monero en ligne de commande. Il a besoin de se
-connecter à un démon monero pour fonctionner correctement.</translation>
+        <translation>Ceci est le portefeuille pyrexcoin en ligne de commande. Il a besoin de se
+connecter à un démon pyrexcoin pour fonctionner correctement.</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet_args.cpp" line="169"/>

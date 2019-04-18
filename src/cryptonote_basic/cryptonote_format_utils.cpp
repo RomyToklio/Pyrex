@@ -791,7 +791,7 @@ namespace cryptonote
     switch (std::atomic_load(&default_decimal_point))
     {
       case 12:
-        return "monero";
+        return "pyrexcoin";
       case 9:
         return "millinero";
       case 6:
@@ -1045,16 +1045,20 @@ namespace cryptonote
   //---------------------------------------------------------------
   bool get_block_longhash(const block& b, crypto::hash& res, uint64_t height)
   {
-    // block 202612 bug workaround
-    const std::string longhash_202612 = "84f64766475d51837ac9efbef1926486e58563c95a19fef4aec3254f03000000";
+    //block 202612 bug workaround
+    /*const std::string longhash_202612 = "84f64766475d51837ac9efbef1926486e58563c95a19fef4aec3254f03000000";
     if (height == 202612)
     {
       string_tools::hex_to_pod(longhash_202612, res);
       return true;
-    }
+    }*/
     blobdata bd = get_block_hashing_blob(b);
-    const int cn_variant = b.major_version >= 7 ? b.major_version - 6 : 0;
-    crypto::cn_slow_hash(bd.data(), bd.size(), res, cn_variant);
+    int cn_variant = b.major_version >= 7 ? b.major_version - 6 : 0;
+    //PyrexCoinTeam Fix CN variant 
+    if(b.major_version >= 10){
+      cn_variant = cn_variant - 1;
+    }
+    crypto::cn_slow_hash(bd.data(), bd.size(), res, cn_variant, height);
     return true;
   }
   //---------------------------------------------------------------
