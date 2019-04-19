@@ -1,11 +1,15 @@
 # Pyrexcoin
-Copyright (c) 2014-2019 The Pyrexcoin Project. 
+Copyright (c) 2018 The PYREXCOIN developers.   
 Copyright (c) 2014-2018 The Monero Project.   
 Portions Copyright (c) 2012-2013 The Cryptonote developers.
 
 ## Development resources
 
-- Web: [pyrexcoin.com.org](https://pyrexcoin.com)
+- Web: [pyrexcoin.com](http://pyrexcoin.com/)
+- Coinmarketcap rating: https://coinmarketcap.com/currencies/pyrexcoin/ 
+- Mail: [admin@pyrexcoin.com](mailto:admin@pyrexcoin.com)
+- GitHub: [https://github.com/pyrex-project/pyrex](https://github.com/pyrex-project/pyrex)
+- Exchanges: Soon
 
 ## Vulnerability response
 
@@ -58,26 +62,6 @@ This is the core implementation of Pyrexcoin. It is open source and completely f
 As with many development projects, the repository on Github is considered to be the "staging" area for the latest changes. Before changes are merged into that branch on the main repository, they are tested by individual developers in their own branches, submitted as a pull request, and then subsequently tested by contributors who focus on testing and code reviews. That having been said, the repository should be carefully considered before using it in a production environment, unless there is a patch in the repository for a particular show-stopping issue you are experiencing. It is generally a better idea to use a tagged release for stability.
 
 **Anyone is welcome to contribute to Pyrexcoin's codebase!** If you have a fix or code change, feel free to submit it as a pull request directly to the "master" branch. In cases where the change is relatively small or does not affect other parts of the codebase it may be merged in immediately by any one of the collaborators. On the other hand, if the change is particularly large or complex, it is expected that it will be discussed at length either well in advance of the pull request being submitted, or even directly on the pull request.
-
-## Supporting the project
-
-Pyrexcoin is a 100% community-sponsored endeavor. If you want to join our efforts, the easiest thing you can do is support the project financially. Both Pyrexcoin and Bitcoin donations can be made to **donate.getmonero.org** if using a client that supports the [OpenAlias](https://openalias.org) standard. Alternatively you can send PYX to the Pyrexcoin donation address via the `donate` command (type `help` in the command-line wallet for details).
-
-The Pyrexcoin donation address is: `44AFFq5kSiGBoZ4NMDwYtN18obc8AemS33DBLWs3H7otXft3XjrpDtQGv7SqSsaBYBb98uNbr2VBBEt7f2wfn3RVGQBEP3A` (viewkey: `f359631075708155cc3d92a32b75a7d02a5dcf27756707b47a2b31b21c389501`)
-
-The Bitcoin donation address is: `1KTexdemPdxSBcG55heUuTjDRYqbC5ZL8H`
-
-Core development funding and/or some supporting services are also graciously provided by sponsors:
-
-[<img width="80" src="https://static.getmonero.org/images/sponsors/mymonero.png"/>](https://mymonero.com)
-[<img width="150" src="https://static.getmonero.org/images/sponsors/kitware.png?1"/>](https://kitware.com)
-[<img width="100" src="https://static.getmonero.org/images/sponsors/dome9.png"/>](https://dome9.com)
-[<img width="150" src="https://static.getmonero.org/images/sponsors/araxis.png"/>](https://araxis.com)
-[<img width="150" src="https://static.getmonero.org/images/sponsors/jetbrains.png"/>](https://www.jetbrains.com/)
-[<img width="150" src="https://static.getmonero.org/images/sponsors/navicat.png"/>](https://www.navicat.com/)
-[<img width="150" src="https://static.getmonero.org/images/sponsors/symas.png"/>](https://www.symas.com/)
-
-There are also several mining pools that kindly donate a portion of their fees, [a list of them can be found on our Bitcointalk post](https://bitcointalk.org/index.php?topic=583449.0).
 
 ## License
 
