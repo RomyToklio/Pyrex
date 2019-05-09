@@ -1,4 +1,4 @@
-// Copyright (c) 2016-2018, The Monero Project
+// Copyright (c) 2016-2019, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -51,8 +51,9 @@ public:
   ~PerformanceTimer();
   void pause();
   void resume();
-
-  uint64_t value() const { return ticks; }
+  void reset();
+  uint64_t value() const;
+  operator uint64_t() const { return value(); }
 
 protected:
   uint64_t ticks;
@@ -63,7 +64,7 @@ protected:
 class LoggingPerformanceTimer: public PerformanceTimer
 {
 public:
-  LoggingPerformanceTimer(const std::string &s, const std::string &cat, uint64_t unit, el::Level l = el::Level::Debug);
+  LoggingPerformanceTimer(const std::string &s, const std::string &cat, uint64_t unit, el::Level l = el::Level::Info);
   ~LoggingPerformanceTimer();
 
 private:

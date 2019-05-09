@@ -1,5 +1,5 @@
 ---
-name: "monero-linux-0.14"
+name: "pyrexcoin-linux-0.14"
 enable_cache: true
 suites:
 - "bionic"
@@ -137,7 +137,7 @@ script: |
     if [ -d "$EXTRA_INCLUDES" ]; then
       export HOST_ID_SALT="$EXTRA_INCLUDES"
     fi
-    make ${MAKEOPTS} -C ${BASEPREFIX} HOST="${i}" -j 4 V=1
+    make ${MAKEOPTS} -C ${BASEPREFIX} HOST="${i}" V=1
     unset HOST_ID_SALT
   done
 
@@ -152,9 +152,9 @@ script: |
   for i in ${HOSTS}; do
     export PATH=${BASEPREFIX}/${i}/native/bin:${ORIGPATH}
     mkdir build && cd build
-    cmake .. -DCMAKE_TOOLCHAIN_FILE=${BASEPREFIX}/${i}/share/toolchain.cmake
+    cmake .. -DCMAKE_TOOLCHAIN_FILE=${BASEPREFIX}/${i}/share/toolchain.cmake -DBACKCOMPAT=ON
     make
-    DISTNAME=monero-${i}
+    DISTNAME=pyrexcoin-${i}
     mv bin ${DISTNAME}
     find ${DISTNAME}/ | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | gzip -9n > ${OUTDIR}/${DISTNAME}.tar.gz
     cd ..

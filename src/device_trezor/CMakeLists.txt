@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2017, The Monero Project
+# Copyright (c) 2014-2019, The Monero Project
 #
 # All rights reserved.
 #
@@ -67,12 +67,10 @@ set(trezor_private_headers)
 if(DEVICE_TREZOR_READY)
     message(STATUS "Trezor support enabled")
 
-    add_definitions(-DPROTOBUF_INLINE_NOT_IN_HEADERS=0)
-
-    set(TREZOR_LIBUSB_LIBRARIES "")
-    if(LibUSB_COMPILE_TEST_PASSED)
-        list(APPEND TREZOR_LIBUSB_LIBRARIES ${LibUSB_LIBRARIES})
-        message(STATUS "Trezor compatible LibUSB found at: ${LibUSB_INCLUDE_DIRS}")
+    if(USE_DEVICE_TREZOR_DEBUG)
+        list(APPEND trezor_headers trezor/debug_link.hpp trezor/messages/messages-debug.pb.h)
+        list(APPEND trezor_sources trezor/debug_link.cpp trezor/messages/messages-debug.pb.cc)
+        message(STATUS "Trezor debugging enabled")
     endif()
 
     monero_private_headers(device_trezor

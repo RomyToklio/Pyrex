@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2014-2019, The Monero Project
 //
 // All rights reserved.
 //
@@ -76,11 +76,6 @@ namespace cryptonote {
     return CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V5;
   }
   //-----------------------------------------------------------------------------------------------
-  size_t get_max_block_size()
-  {
-    return CRYPTONOTE_MAX_BLOCK_SIZE;
-  }
-  //-----------------------------------------------------------------------------------------------
   size_t get_max_tx_size()
   {
     return CRYPTONOTE_MAX_TX_SIZE;
@@ -111,7 +106,10 @@ namespace cryptonote {
     if (median_weight < full_reward_zone) {
       median_weight = full_reward_zone;
     }
-
+    if(version >= HF_VERSION_LONG_TERM_BLOCK_WEIGHT){
+      reward = CRYPTONOTE_BLOCK_GRANTED_STATIC_REWARD_V1;
+      return true;
+    }
     if (current_block_weight <= median_weight) {
       reward = base_reward;
       return true;

@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018, The Monero Project
+// Copyright (c) 2017-2019, The Monero Project
 //
 // All rights reserved.
 //
@@ -42,31 +42,42 @@
 #include "cryptonote_config.h"
 #include "trezor.hpp"
 
+#ifdef WITH_TREZOR_DEBUGGING
+#include "trezor/debug_link.hpp"
+#endif
+
 //automatic lock one more level on device ensuring the current thread is allowed to use it
-#define AUTO_LOCK_CMD() \
+#define TREZOR_AUTO_LOCK_CMD() \
   /* lock both mutexes without deadlock*/ \
   boost::lock(device_locker, command_locker); \
   /* make sure both already-locked mutexes are unlocked at the end of scope */ \
   boost::lock_guard<boost::recursive_mutex> lock1(device_locker, boost::adopt_lock); \
   boost::lock_guard<boost::mutex> lock2(command_locker, boost::adopt_lock)
 
-  
+#define TREZOR_AUTO_LOCK_DEVICE() boost::lock_guard<boost::recursive_mutex> lock1_device(device_locker)
+
 namespace hw {
 namespace trezor {
 
 #ifdef WITH_DEVICE_TREZOR
   class device_trezor_base;
 
-  /**
-   * Trezor device callbacks
-   */
-  class trezor_callback {
-  public:
-    virtual void on_button_request() {};
-    virtual void on_pin_request(epee::wipeable_string & pin) {};
-    virtual void on_passphrase_request(bool on_device, epee::wipeable_string & passphrase) {};
-    virtual void on_passphrase_state_request(const std::string & state) {};
-  };
+#ifdef WITH_TREZOR_DEBUGGING
+    class trezor_debug_callback : public hw::i_device_callback {
+    public:
+      trezor_debug_callback()=default;
+      explicit trezor_debug_callback(std::shared_ptr<Transport> & debug_transport);
+
+      void on_button_request(uint64_t code=0) override;
+      boost::optional<epee::wipeable_string> on_pin_request() override;
+      boost::optional<epee::wipeable_string> on_passphrase_request(bool on_device) override;
+      void on_passphrase_state_request(const std::string &state);
+      void on_disconnect();
+    protected:
+      std::shared_ptr<DebugLink> m_debug_link;
+    };
+
+#endif
 
   /**
    * TREZOR device template with basic functions
@@ -79,19 +90,35 @@ namespace trezor {
       mutable boost::mutex  command_locker;
 
       std::shared_ptr<Transport> m_transport;
-      std::shared_ptr<trezor_callback> m_callback;
+      i_device_callback * m_callback;
 
-      std::string full_name;
+      std::string m_full_name;
+      std::vector<unsigned int> m_wallet_deriv_path;
+      std::string m_device_state;  // returned after passphrase entry, session
+      std::shared_ptr<messages::management::Features> m_features;  // features from the last device reset
+      boost::optional<epee::wipeable_string> m_pin;
+      boost::optional<epee::wipeable_string> m_passphrase;
+      messages::MessageType m_last_msg_type;
 
       cryptonote::network_type network_type;
+
+#ifdef WITH_TREZOR_DEBUGGING
+      std::shared_ptr<trezor_debug_callback> m_debug_callback;
+      bool m_debug;
+
+      void setup_debug();
+#endif
 
       //
       // Internal methods
       //
 
-      void require_connected();
+      void require_connected() const;
+      void require_initialized() const;
       void call_ping_unsafe();
       void test_ping();
+      virtual void device_state_reset_unsafe();
+      void ensure_derivation_path() noexcept;
 
       // Communication methods
 
@@ -108,7 +135,7 @@ namespace trezor {
        * @throws UnexpectedMessageException if the response message type is different than expected.
        * Exception contains message type and the message itself.
        */
-      template<class t_message>
+      template<class t_message=google::protobuf::Message>
       std::shared_ptr<t_message>
       client_exchange(const std::shared_ptr<const google::protobuf::Message> &req,
                       const boost::optional<messages::MessageType> & resp_type = boost::none,
@@ -139,7 +166,7 @@ namespace trezor {
         // Scoped session closer
         BOOST_SCOPE_EXIT_ALL(&, this) {
           if (open_session){
-            this->getTransport()->close();
+            this->get_transport()->close();
           }
         };
 
@@ -187,7 +214,11 @@ namespace trezor {
             msg->add_address_n(x);
           }
         } else {
+          ensure_derivation_path();
           for (unsigned int i : DEFAULT_BIP44_PATH) {
+            msg->add_address_n(i);
+          }
+          for (unsigned int i : m_wallet_deriv_path) {
             msg->add_address_n(i);
           }
         }
@@ -212,14 +243,39 @@ namespace trezor {
     bool reset();
 
     // Default derivation path for Monero
-    static const uint32_t DEFAULT_BIP44_PATH[3];
+    static const uint32_t DEFAULT_BIP44_PATH[2];
 
-    std::shared_ptr<Transport> getTransport(){
+    std::shared_ptr<Transport> get_transport(){
       return m_transport;
     }
 
-    std::shared_ptr<trezor_callback> getCallback(){
+    void set_callback(i_device_callback * callback) override {
+      m_callback = callback;
+    }
+
+    i_device_callback * get_callback(){
       return m_callback;
+    }
+
+    std::shared_ptr<messages::management::Features> & get_features() {
+      return m_features;
+    }
+
+    uint64_t get_version() const {
+      CHECK_AND_ASSERT_THROW_MES(m_features, "Features not loaded");
+      CHECK_AND_ASSERT_THROW_MES(m_features->has_major_version() && m_features->has_minor_version() && m_features->has_patch_version(), "Invalid Trezor firmware version information");
+      return pack_version(m_features->major_version(), m_features->minor_version(), m_features->patch_version());
+    }
+
+    void set_derivation_path(const std::string &deriv_path) override;
+
+    virtual bool has_ki_live_refresh(void) const override { return false; }
+
+    virtual void set_pin(const epee::wipeable_string & pin) override {
+      m_pin = pin;
+    }
+    virtual void set_passphrase(const epee::wipeable_string & passphrase) override {
+      m_passphrase = passphrase;
     }
 
     /* ======================================================================= */
@@ -249,11 +305,34 @@ namespace trezor {
      */
     bool ping();
 
+    /**
+     * Performs Initialize call to the Trezor, resets to known state.
+     */
+    void device_state_reset();
+
     // Protocol callbacks
     void on_button_request(GenericMessage & resp, const messages::common::ButtonRequest * msg);
+    void on_button_pressed();
     void on_pin_request(GenericMessage & resp, const messages::common::PinMatrixRequest * msg);
     void on_passphrase_request(GenericMessage & resp, const messages::common::PassphraseRequest * msg);
     void on_passphrase_state_request(GenericMessage & resp, const messages::common::PassphraseStateRequest * msg);
+
+#ifdef WITH_TREZOR_DEBUGGING
+    void set_debug(bool debug){
+      m_debug = debug;
+    }
+
+    void set_debug_callback(std::shared_ptr<trezor_debug_callback> & debug_callback){
+      m_debug_callback = debug_callback;
+    }
+
+    void wipe_device();
+    void init_device();
+    void load_device(const std::string & mnemonic, const std::string & pin="", bool passphrase_protection=false,
+        const std::string & label="test", const std::string & language="english",
+        bool skip_checksum=false, bool expand=false);
+
+#endif
   };
 
 #endif
