@@ -830,8 +830,23 @@ bool Blockchain::get_block_by_hash(const crypto::hash &h, block &blk, bool *orph
 // less blocks than desired if there aren't enough.
 difficulty_type Blockchain::get_difficulty_for_next_block()
 {
+  if (m_fixed_difficulty)
+  {
+    return m_db->height() ? m_fixed_difficulty : 1;
+  }
   LOG_PRINT_L3("Blockchain::" << __func__);
+  crypto::hash top_hash = get_tail_id();
+  {
+    CRITICAL_REGION_LOCAL(m_difficulty_lock);
+    // we can call this without the blockchain lock, it might just give us
+    // something a bit out of date, but that's fine since anything which
+    // requires the blockchain lock will have acquired it in the first place,
+    // and it will be unlocked only when called from the getinfo RPC
+    if (top_hash == m_difficulty_for_next_block_top_hash)
+      return m_difficulty_for_next_block;
+  }
   CRITICAL_REGION_LOCAL(m_blockchain_lock);
+
   std::vector<uint64_t> timestamps;
   std::vector<difficulty_type> difficulties;
   auto height = m_db->height();
