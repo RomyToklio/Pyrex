@@ -3,6 +3,26 @@ Copyright (c) 2018 The PYREXCOIN developers.
 Copyright (c) 2014-2018 The Monero Project.   
 Portions Copyright (c) 2012-2013 The Cryptonote developers.
 
+## Table of Contents
+
+  - [Development resources](#development-resources)
+  - [Vulnerability response](#vulnerability-response)
+  - [Research](#research)
+  - [Announcements](#announcements)
+  - [Translations](#translations)
+  - [Build](#build)
+    - [IMPORTANT](#important)
+  - [Coverage](#coverage)
+  - [Introduction](#introduction)
+  - [About this project](#about-this-project)
+  - [Supporting the project](#supporting-the-project)
+  - [License](#license)
+  - [Contributing](#contributing)
+  - [Scheduled software upgrades](#scheduled-software-upgrades)
+  - [Release staging schedule and protocol](#release-staging-schedule-and-protocol)
+  - [Compiling Monero from source](#compiling-monero-from-source)
+    - [Dependencies](#dependencies)
+
 ## Development resources
 
 - Web: [pyrexcoin.com](http://pyrexcoin.com/)
@@ -194,23 +214,31 @@ invokes cmake commands as needed.
 
 * **Optional**: build and run the test suite to verify the binaries:
 
-        make release-test
+    ```bash
+    make release-test
+    ```
 
     *NOTE*: `core_tests` test may take a few hours to complete.
 
 * **Optional**: to build binaries suitable for debugging:
 
-         make debug
+    ```bash
+    make debug
+    ```
 
 * **Optional**: to build statically-linked binaries:
 
-         make release-static
+    ```bash
+    make release-static
+    ```
 
 Dependencies need to be built with -fPIC. Static libraries usually aren't, so you may have to build them yourself with -fPIC. Refer to their documentation for how to build them.
 
 * **Optional**: build documentation in `doc/html` (omit `HAVE_DOT=YES` if `graphviz` is not installed):
 
-        HAVE_DOT=YES doxygen Doxyfile
+    ```bash
+    HAVE_DOT=YES doxygen Doxyfile
+    ```
 
 #### On the Raspberry Pi
 
@@ -234,9 +262,11 @@ Tested on a Raspberry Pi Zero with a clean install of minimal Raspbian Stretch (
 	git checkout release-v0.13
 ```
 * Build:
-```
-        make release
-```
+
+    ```bash
+    make release
+    ```
+
 * Wait 4-6 hours
 
 * The resulting executables can be found in `build/release/bin`
@@ -263,18 +293,22 @@ If you are using the older Raspbian Jessie image, compiling Pyrexcoin is a bit m
 * Then, install the dependencies for Pyrexcoin except `libunwind` and `libboost-all-dev`
 
 * Install the latest version of boost (this may first require invoking `apt-get remove --purge libboost*` to remove a previous version if you're not using a clean install):
-```
-	cd  
-	wget https://sourceforge.net/projects/boost/files/boost/1.64.0/boost_1_64_0.tar.bz2  
-	tar xvfo boost_1_64_0.tar.bz2  
-	cd boost_1_64_0  
-	./bootstrap.sh  
-	sudo ./b2  
-```
+
+    ```bash
+    cd
+    wget https://sourceforge.net/projects/boost/files/boost/1.64.0/boost_1_64_0.tar.bz2
+    tar xvfo boost_1_64_0.tar.bz2
+    cd boost_1_64_0
+    ./bootstrap.sh
+    sudo ./b2
+    ```
+
 * Wait ~8 hours
-```
-	sudo ./bjam cxxflags=-fPIC cflags=-fPIC -a install
-```
+
+    ```bash    
+    sudo ./bjam cxxflags=-fPIC cflags=-fPIC -a install
+    ```
+
 * Wait ~4 hours
 
 * From here, follow the [general Raspberry Pi instructions](#on-the-raspberry-pi) from the "Clone Pyrexcoin and checkout most recent release version" step.
@@ -293,24 +327,32 @@ application.
 * Open the MSYS shell via the `MSYS2 Shell` shortcut
 * Update packages using pacman:  
 
-        pacman -Syu  
+    ```bash
+    pacman -Syu
+    ```
 
 * Exit the MSYS shell using Alt+F4  
 * Edit the properties for the `MSYS2 Shell` shortcut changing "msys2_shell.bat" to "msys2_shell.cmd -mingw64" for 64-bit builds or "msys2_shell.cmd -mingw32" for 32-bit builds
 * Restart MSYS shell via modified shortcut and update packages again using pacman:  
 
-        pacman -Syu  
+    ```bash
+    pacman -Syu
+    ```
 
 
 * Install dependencies:
 
     To build for 64-bit Windows:
 
-        pacman -S mingw-w64-x86_64-toolchain make mingw-w64-x86_64-cmake mingw-w64-x86_64-boost mingw-w64-x86_64-openssl mingw-w64-x86_64-zeromq mingw-w64-x86_64-libsodium mingw-w64-x86_64-hidapi
+    ```bash
+    pacman -S mingw-w64-x86_64-toolchain make mingw-w64-x86_64-cmake mingw-w64-x86_64-boost mingw-w64-x86_64-openssl mingw-w64-x86_64-zeromq mingw-w64-x86_64-libsodium mingw-w64-x86_64-hidapi
+    ```
 
     To build for 32-bit Windows:
 
-        pacman -S mingw-w64-i686-toolchain make mingw-w64-i686-cmake mingw-w64-i686-boost mingw-w64-i686-openssl mingw-w64-i686-zeromq mingw-w64-i686-libsodium mingw-w64-i686-hidapi
+    ```bash
+    pacman -S mingw-w64-i686-toolchain make mingw-w64-i686-cmake mingw-w64-i686-boost mingw-w64-i686-openssl mingw-w64-i686-zeromq mingw-w64-i686-libsodium mingw-w64-i686-hidapi
+    ```
 
 * Open the MingW shell via `MinGW-w64-Win64 Shell` shortcut on 64-bit Windows
   or `MinGW-w64-Win64 Shell` shortcut on 32-bit Windows. Note that if you are
@@ -331,21 +373,29 @@ application.
 
 * If you are on a 64-bit system, run:
 
-        make release-static-win64
+    ```bash
+    make release-static-win64
+    ```
 
 * If you are on a 32-bit system, run:
 
-        make release-static-win32
+    ```bash
+    make release-static-win32
+    ```
 
 * The resulting executables can be found in `build/release/bin`
 
 * **Optional**: to build Windows binaries suitable for debugging on a 64-bit system, run:
 
-        make debug-static-win64
+    ```bash
+    make debug-static-win64
+    ```
 
 * **Optional**: to build Windows binaries suitable for debugging on a 32-bit system, run:
 
-        make debug-static-win32
+    ```bash
+    make debug-static-win32
+    ```
 
 * The resulting executables can be found in `build/debug/bin`
 
@@ -385,7 +435,7 @@ We assume you are compiling with a non-root user and you have `doas` enabled.
 
 Note: do not use the boost package provided by OpenBSD, as we are installing boost to `/usr/local`.
 
-```
+```bash
 # Create boost building directory
 mkdir ~/boost
 cd ~/boost
@@ -421,7 +471,7 @@ Build the cppzmq bindings.
 
 We assume you are compiling with a non-root user and you have `doas` enabled.
 
-```
+```bash
 # Create cppzmq building directory
 mkdir ~/cppzmq
 cd ~/cppzmq
@@ -464,10 +514,12 @@ Then you need to increase the data ulimit size to 2GB and try again: `ulimit -d 
 
 The default Solaris linker can't be used, you have to install GNU ld, then run cmake manually with the path to your copy of GNU ld:
 
-        mkdir -p build/release
-        cd build/release
-        cmake -DCMAKE_LINKER=/path/to/ld -D CMAKE_BUILD_TYPE=Release ../..
-        cd ../..
+```bash
+mkdir -p build/release
+cd build/release
+cmake -DCMAKE_LINKER=/path/to/ld -D CMAKE_BUILD_TYPE=Release ../..
+cd ../..
+```
 
 Then you can run make as usual.
 
@@ -572,7 +624,7 @@ This section contains general instructions for debugging failed installs or prob
 
 We generally use the tool `gdb` (GNU debugger) to provide stack trace functionality, and `ulimit` to provide core dumps in builds which crash or segfault.
 
-* To use gdb in order to obtain a stack trace for a build that has stalled:
+* To use `gdb` in order to obtain a stack trace for a build that has stalled:
 
 Run the build.
 
@@ -612,15 +664,17 @@ Type `run` to run pyrexcoind
 
 There are two tools available:
 
-* ASAN
+#### ASAN
 
 Configure Pyrexcoin with the -D SANITIZE=ON cmake flag, eg:
 
-    cd build/debug && cmake -D SANITIZE=ON -D CMAKE_BUILD_TYPE=Debug ../..
+```bash
+cd build/debug && cmake -D SANITIZE=ON -D CMAKE_BUILD_TYPE=Debug ../..
+```
 
 You can then run the pyrexcoin tools normally. Performance will typically halve.
 
-* valgrind
+#### valgrind
 
 Run with `valgrind /path/to/pyrexcoind`. It will be slow.
 
